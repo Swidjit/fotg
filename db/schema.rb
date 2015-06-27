@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150615192154) do
+ActiveRecord::Schema.define(version: 20150627170337) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,15 @@ ActiveRecord::Schema.define(version: 20150615192154) do
   end
 
   add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
+
+  create_table "other_games", force: true do |t|
+    t.string  "title"
+    t.string  "description"
+    t.string  "image_url"
+    t.string  "slug"
+    t.integer "difficulty_level"
+    t.string  "file_name"
+  end
 
   create_table "rankings", force: true do |t|
     t.integer "game_id"

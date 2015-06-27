@@ -5,9 +5,9 @@ Rails.application.configure do
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
-
+  config.assets.paths << Rails.root.join('app', 'assets', 'flash')
   # for omniauth
-  config.app_domain = 'good-luck.herokuapp.com'
+  config.app_domain = 'fotg.herokuapp.com'
   # Do not eager load code on boot.
   config.eager_load = false
 

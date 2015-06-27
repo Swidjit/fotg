@@ -156,37 +156,24 @@ font-size: 20px;
 	display:inline;
 	color: $dark-blue;
 }
-.lottery {
-	display: none;
-	font-size: 2.5em;
-	line-height: 1.8em;
-	font-family: 'Oswald', sans-serif;
-	padding: 0 7px;
-	margin-right: 6px;
 
-	span {
-    width: 50px;
-    text-align: center;
-    display: inline-block;
-    color: $dark-blue;
-	}
+#target-text, #output-text {
+  position: absolute;
+  top: 80px;
+  font-size: 35px;
+  padding-left: 6px;
 }
+#output-text {
+  color: red;
 
-.grid-piece {
-  background-color: #ccc;
-  margin: 0px;
-  display: inline-block;
-  font-size: 80px;
-  padding: 4px 0px;
-  width: 100px;
-  margin-bottom: 4px;
-  text-align:center;
-  line-height: 80px;
-  span {
-    color: #000;
-  }
 }
-
+input#entry {
+  position: relative;
+  border: 0px;
+  font-size: 35px;
+  line-height: 60px;
+  height: auto;
+}
 #user-menu-icon {
   i {
     font-size: 33px;

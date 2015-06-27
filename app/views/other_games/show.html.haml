@@ -1,7 +1,7 @@
 .row
   .large-12.columns.centered
-    %object{:data => asset_path(@game.file_name, flash), :height => "400",:width => "400", :type => "application/x-shockwave-flash"}
-      %param{:name => "movie", :value => asset_path(@game.file_name, flash)}/
+    %object{:data => video_url(@game.file_name), :height => "400",:width => "400", :type => "application/x-shockwave-flash"}
+      %param{:name => "movie", :value => video_url(@game.file_name)}/
       %param{:name => "quality", :value => "high"}/
     %section.section
       %h5.title

@@ -12,7 +12,8 @@ Rails.application.configure do
   # Code is not reloaded between requests.
   config.cache_classes = true
 
-  config.app_domain = 'good-luck.herokuapp.com'
+  config.app_domain = 'fotg.herokuapp.com'
+  config.assets.paths << Rails.root.join('app', 'assets', 'flash')
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers

@@ -11,4 +11,10 @@ namespace :init do
     @game = Game.new(:title => "Press On",:description => "Press your luck on and on until you land on the wrong square.", :expected_score => 35, :avg => 0, :plays=>0, :logo_url => "dummy.png")
     @game.save
   end
+  task :other_games => :environment do
+    OtherGame.delete_all
+    @game = OtherGame.new(:title => "Typing Tidepool",:description => "Test descriptions", :file_name => "Typing-Tidepool.swf")
+    @game.save
+
+  end
 end

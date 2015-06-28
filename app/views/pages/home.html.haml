@@ -13,23 +13,54 @@
     #target-text
       this is the
     #output-text
-
+    #wpm
+    %div#errors
 
 :javascript
   $(document).on('ready page:load', function(){
+      var start_time, end_time;
+      var started = false;
       $('input#entry').focus();
       $('input#entry').on("keyup", function(event) {
-        Example1.Timer.play();
+        if(!started) {
+          started = true;
+          start_time = new Date().getTime();
+          Example1.Timer.play();
+        }
+
         var keycode = (event.keyCode ? event.keyCode : event.which);
         if($(this).val() == $.trim($('#target-text').text())) {
           //ok, its a match
           length = Example1.getTime();
-          console.log(length);
           Example1.Timer.stop();
 
         }
         if(keycode == '13'){
           //you submitted it
+          $('input#entry').prop('disabled', true);
+          length = Example1.getTime();
+          Example1.Timer.stop();
+
+          //calculate wpm
+          end_time = new Date().getTime();
+          elapsed_time = (end_time-start_time)/60000;
+          console.log(elapsed_time);
+          wpm = ($(this).val().length/5)/elapsed_time;
+          $('#wpm').text(wpm.toFixed(2));
+
+          //count errors
+          errors = 0;
+          txt = $(this).val();
+          target = $.trim($('#target-text').text());
+          for (var i = 0, len = txt.length; i < len; i++) {
+            if(txt[i]==target[i]) {
+               // do nothing
+            }
+            else {
+              errors++;
+            }
+          }
+          $('#errors').text(errors);
         }
         showTextErrors($(this).val());
       });

@@ -1,0 +1,206 @@
+:javascript
+  var eligible = '#{@game_eligibility}';
+-content_for :head do
+  %title #{@game.title} | A Luck Test
+  %meta{:content => "#{@game.title} | A Luck Test", :property => "og:title"}
+  %meta{:content => "Good Luck", :property => "og:site_name"}
+  %meta{:content => "Test your typing speed and see how many words per minute (WPM) you can type", :property => "og:description"}
+  %meta{:content => "World's Luckiest People", :property => "title"}
+  %meta{:property => "description", :content => "Test your typing speed and see how many words per minute (WPM) you can type"}
+  %meta{:property => 'keywords', :content => '#{@game.itle}, luck, games, test, exam, play'}
+.row
+  .large-9.columns
+    .row
+      .large-6.columns
+        %h3.game-title
+          WPM Test ##{@game.id}
+          .fb-share-button{"data-href" => "https://developers.facebook.com/docs/plugins/", "data-layout" => "button"}
+        %h4=@game.title
+      .large-6.columns
+        .game-score.right
+          .score-label Score:
+          .score-value 0
+
+    .ad
+      %script{:async => "", :src => "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"}
+      / good luck - above game
+      %ins.adsbygoogle{"data-ad-client" => "ca-pub-1203319491225179", "data-ad-format" => "auto", "data-ad-slot" => "5098510223", :style => "display:block"}
+      :javascript
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    .section-container.tabs{"data-section" => ""}
+      %section.section
+        .content{"data-slug" => "panel1"}
+          -if !user_signed_in? || @eligible_games.include?(@game.id)
+            #stopwatch
+            %input#entry{:type => "text", :placeholder => "type here"}
+            #target-text
+              =@game.body
+            #output-text
+            #wpm
+            %div#errors
+          -else
+            =render :partial => 'ineligible'
+      %section.section
+        %h4.title Tell Your Friends!
+        =social_share_button_tag(@game.title)
+      %section.section
+        %h5.title
+          %a{:href => "#panel2"} Comments
+        .content{"data-slug" => "panel2"}
+          .comments
+            -if user_signed_in?
+              = render :partial => 'comments/form', :locals => { :comment => @new_comment }
+            = render :partial => 'comments/comment', :collection => @comments, :as => :comment
+          .comment-bottom
+
+#myModal.reveal-modal{"data-reveal" => ""}
+  %h2 You are not signed in
+  %p.lead You'll need to register to participate
+  =link_to new_user_session_path do
+    %button.radius.button Login
+  =link_to new_user_registration_path do
+    %button.radius.button Signup
+  %a.close-reveal-modal ×
+-if user_signed_in?
+  #gameComplete.reveal-modal{"data-reveal" => ""}
+    .green{:style =>"padding: 4px 15px 1px; margin: 0 10px 12px 0;"}
+
+      .results
+        %label score
+        %label normalized score
+        %label score percentile
+        .score-raw
+        .score-relative
+        .score-percentile
+        .streak-msg
+    -if @eligible_games.size > 1
+      %h5 Your score has been saved. You are also currently elibile to play:
+      =render :partial => 'eligible_games'
+    -else
+      %h5 You are not eligible to play any further games at the moment. Come back in an hour to play again.
+    %a.close-reveal-modal ×
+-else
+  #gameComplete.reveal-modal{"data-reveal" => ""}
+    .green{:style =>"padding: 4px 15px 1px; margin: 0 10px 12px 0;"}
+
+      %h4{:style=>"font-size:: 25px;"}
+        You are playing as a guest.  Login now and we will save your score to your new account and you can start tracking your luck.
+        .score-value 0
+      =link_to new_user_session_path do
+        %button.radius.button Login
+      =link_to new_user_registration_path do
+        %button.radius.button Signup
+
+    %h5 Or, try out other games as a guest:
+    -@eligible_games = Game.all
+    =render :partial => 'eligible_games'
+    %a.close-reveal-modal ×
+
+#ineligible.reveal-modal{"data-reveal" => ""}
+  %p You are not eligible to play #{@game.title} again until #{@eligibility_times[@game.id]}
+  -if @eligible_games.size > 1
+    %h5 You are currently elibile to play:
+    =render :partial => 'eligible_games'
+  -else
+    %h5 You are not eligible to play any further games at the moment. Come back in an hour to play again.
+  %a.close-reveal-modal ×
+
+:javascript
+  $(document).on('ready page:load', function(){
+      var start_time, end_time;
+      var started = false;
+      $('input#entry').focus();
+      $('input#entry').bind("cut copy paste",function(e) {
+          e.preventDefault();
+      });
+      $('input#entry').on("keyup", function(event) {
+        if(!started) {
+          started = true;
+          start_time = new Date().getTime();
+          Example1.Timer.play();
+        }
+
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if($(this).val() == $.trim($('#target-text').text())) {
+          //ok, its a match
+          length = Example1.getTime();
+          Example1.Timer.stop();
+
+        }
+        if(keycode == '13'){
+          //you submitted it
+          $('input#entry').prop('disabled', true);
+          length = Example1.getTime();
+          Example1.Timer.stop();
+
+          //calculate wpm
+          end_time = new Date().getTime();
+          elapsed_time = (end_time-start_time)/60000;
+          console.log(elapsed_time);
+          wpm = ($(this).val().length/5)/elapsed_time;
+          $('#wpm').text(wpm.toFixed(2));
+
+          //count errors
+          errors = 0;
+          txt = $(this).val();
+          target = $.trim($('#target-text').text());
+          for (var i = 0, len = txt.length; i < len; i++) {
+            if(txt[i]==target[i]) {
+               // do nothing
+            }
+            else {
+              errors++;
+            }
+          }
+          $('#errors').text(errors);
+        }
+        showTextErrors($(this).val());
+      });
+
+      function showTextErrors(txt) {
+        html = "";
+        target = $.trim($('#target-text').text());
+        for (var i = 0, len = txt.length; i < len; i++) {
+          if(txt[i]==target[i]) {
+             html += "<span>" + txt[i] + "</span>";
+          }
+          else {
+            html += "<span style='color:red'>" + target[i] + "</span>";
+          }
+        }
+
+        $('#output-text').html(html);
+      }
+  });
+  var Example1 = new (function() {
+    var $stopwatch, // Stopwatch element on the page
+        incrementTime = 70, // Timer speed in milliseconds
+        currentTime = 0, // Current time in hundredths of a second
+        updateTimer = function() {
+            $stopwatch.html(formatTime(currentTime));
+            currentTime += incrementTime / 10;
+        },
+        init = function() {
+            $stopwatch = $('#stopwatch');
+            Example1.Timer = $.timer(updateTimer, incrementTime, false);
+        };
+    this.getTime = function() {
+        return currentTime;
+      };
+    this.resetStopwatch = function() {
+        currentTime = 0;
+        this.Timer.stop().once();
+    };
+    $(init);
+  });
+  function pad(number, length) {
+      var str = '' + number;
+      while (str.length < length) {str = '0' + str;}
+      return str;
+  }
+  function formatTime(time) {
+      var min = parseInt(time / 6000),
+          sec = parseInt(time / 100) - (min * 60),
+          hundredths = pad(time - (sec * 100) - (min * 6000), 2);
+      return (min > 0 ? pad(min, 2) : "00") + ":" + pad(sec, 2) + ":" + hundredths;
+  }

@@ -17,4 +17,11 @@ namespace :init do
     @game.save
 
   end
+
+  task :set_friendly_ids => :environment do
+    WpmTest.all.each do |tst|
+      tst.slug = "wpm-test-#{tst.id}"
+      tst.save
+    end
+  end
 end

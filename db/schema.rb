@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150627170337) do
+ActiveRecord::Schema.define(version: 20150629002026) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,13 +94,13 @@ ActiveRecord::Schema.define(version: 20150627170337) do
   end
 
   create_table "scores", force: true do |t|
-    t.integer  "game_id"
     t.integer  "user_id"
-    t.integer  "game_num"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "value",      default: 0
+    t.integer  "value",          default: 0
     t.integer  "session_id"
+    t.integer  "scoreable_id"
+    t.string   "scoreable_type"
   end
 
   create_table "spot_values", force: true do |t|
@@ -141,5 +141,12 @@ ActiveRecord::Schema.define(version: 20150627170337) do
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "wpm_tests", force: true do |t|
+    t.string  "title"
+    t.string  "body"
+    t.string  "slug"
+    t.integer "difficulty_level"
+  end
 
 end

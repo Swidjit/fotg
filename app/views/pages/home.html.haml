@@ -21,6 +21,9 @@
       var start_time, end_time;
       var started = false;
       $('input#entry').focus();
+      $('input#entry').bind("cut copy paste",function(e) {
+          e.preventDefault();
+      });
       $('input#entry').on("keyup", function(event) {
         if(!started) {
           started = true;

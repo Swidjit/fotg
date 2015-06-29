@@ -1,9 +1,8 @@
-=link_to game_path(game) do
-  %img{:src => "assets/#{game.logo_url}"}/
-%h4.game-title=game.title
-.game-desc
-  =game.description
-=link_to game_path(game) do
+
+%h4.game-title
+  WPM Test #{game.id}: #{game.title}
+
+=link_to wpm_test_path(game) do
   %button{:type => "submit"}
     %i.fi-play
-    Play #{game.title}
+    Take WPM Test ##{game.id}

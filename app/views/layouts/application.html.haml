@@ -13,8 +13,8 @@
     = csrf_meta_tag
     =yield :head
   %body
-    =render :partial => 'layouts/head'
+    =render :partial => 'shared/head'
     %p.notice= notice
     %p.alert= alert
     = yield
-    =render :partial => 'layouts/footer'
+    =render :partial => 'shared/footer'

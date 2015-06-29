@@ -45,7 +45,8 @@ class GamesController < ApplicationController
   end
 
   def index
-    @games = Game.all
+    #@games = Game.all
+    redirect_to other_games_path
   end
 
   def init_score

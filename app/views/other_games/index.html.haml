@@ -10,4 +10,4 @@
 .row
   -@games.each do |game|
     .small-12.medium-4.large-4.columns
-      =render :partial => 'wpm_test', :locals => {game: game}
+      =render :partial => 'games/game', :locals => {game: game}

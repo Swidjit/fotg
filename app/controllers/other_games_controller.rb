@@ -6,18 +6,22 @@ class OtherGamesController < ApplicationController
     @comments = @game.comment_threads.order('created_at desc')
   end
 
+  def index
+    @games = OtherGame.all
+  end
+
   private
 
   def load_resource_from_id
     #handle old urls anomalies
-    params[:game] = 'alpha-drop' if params[:game] == 'alpha-dro'
-    params[:game] = 'typing-tone' if params[:game] == 'typing-tone-2'
+    params[:id] = 'alpha-drop' if params[:id] == 'alpha-dro'
+    params[:id] = 'typing-tone' if params[:id] == 'typing-tone-2'
     begin
-      @game = OtherGame.friendly.find(params[:game])
+      @game = OtherGame.friendly.find(params[:id])
     rescue ActiveRecord::RecordNotFound => e
       # for urls that end with -game
       begin
-        @game = OtherGame.friendly.find(params[:game][0..-6])
+        @game = OtherGame.friendly.find(params[:id][0..-6])
       rescue ActiveRecord::RecordNotFound => e
         redirect_to games_path
       end

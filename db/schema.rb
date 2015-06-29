@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150629021843) do
+ActiveRecord::Schema.define(version: 20150629024130) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,6 +112,22 @@ ActiveRecord::Schema.define(version: 20150629021843) do
     t.integer "game_id"
     t.integer "streak",    default: 0
     t.string  "direction"
+  end
+
+  create_table "typing_news", force: true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "typing_resources", force: true do |t|
+    t.string   "title"
+    t.string   "url"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|

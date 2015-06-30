@@ -9,7 +9,7 @@
   %meta{:property => "description", :content => "#{@game.description}"}
   %meta{:property => 'keywords', :content => '#{@game.itle}, luck, games, test, exam, play'}
 .row
-  .large-9.columns
+  .large-12.columns
     .row
       .large-6.columns
         %h3.game-title
@@ -24,25 +24,12 @@
       =@game.description
     .ad
       %script{:async => "", :src => "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"}
-      / good luck - above game
-      %ins.adsbygoogle{"data-ad-client" => "ca-pub-1203319491225179", "data-ad-format" => "auto", "data-ad-slot" => "5098510223", :style => "display:block"}
+      / fotg page header
+      %ins.adsbygoogle{"data-ad-client" => "ca-pub-1203319491225179", "data-ad-format" => "auto", "data-ad-slot" => "1802013024", :style => "display:block"}
       :javascript
         (adsbygoogle = window.adsbygoogle || []).push({});
-    .section-container.tabs{"data-section" => ""}
-      %section.section
-        .content{"data-slug" => "panel1"}
-          -if !user_signed_in? || @eligible_games.include?(@game.id)
-            -case @game.id
-            -when 1
-              =render :partial => 'lottery'
-            -when 3
-              =render :partial => 'number_flip'
-            -when 2
-              =render :partial => 'spot_in_time'
-            -when 4
-              =render :partial => 'press_on'
-          -else
-            =render :partial => 'ineligible'
+    #game
+      =render :partial => "#{@game.title.downcase.gsub(' ', '_')}"
       %section.section
         %h4.title Tell Your Friends!
         =social_share_button_tag(@game.title)
@@ -57,44 +44,6 @@
           .comment-bottom
   .large-3.columns
 
-    .stats-box
-      %h5 Game Stats
-      .stat-label avg score
-      .stat-data
-        =@game.avg.round(2)
-      .clear
-      .stat-label times played
-      .stat-data
-        =@game.plays
-    -if @user_ranking.present?
-      .stats-box
-        %h5 Your Stats
-        .stat-label your score
-        .stat-data
-          =@user_ranking.score
-        .clear
-        .stat-label your percentile
-        .stat-data
-          ="#{@user_ranking.percentile}%"
-    .stats-box
-      %h5.title Best Luck
-      -@best.each do |r|
-        .stat-label=User.find(r.user_id).username
-        .stat-data=r.score
-        .clear
-    .stats-box
-      %h5.title Worst Luck
-      -@worst.each do |r|
-        .stat-label=User.find(r.user_id).username
-        .stat-data=r.score
-        .clear
-    -if @streaks.present?
-      .stats-box
-        %h5.title Hot Streaks
-        -@streaks.each do |r|
-          .stat-label=User.find(r.user_id).username
-          .stat-data=r.streak
-          .clear
 #myModal.reveal-modal{"data-reveal" => ""}
   %h2 You are not signed in
   %p.lead You'll need to register to participate
@@ -115,11 +64,6 @@
         .score-relative
         .score-percentile
         .streak-msg
-    -if @eligible_games.size > 1
-      %h5 Your score has been saved. You are also currently elibile to play:
-      =render :partial => 'eligible_games'
-    -else
-      %h5 You are not eligible to play any further games at the moment. Come back in an hour to play again.
     %a.close-reveal-modal ×
 -else
   #gameComplete.reveal-modal{"data-reveal" => ""}
@@ -137,15 +81,6 @@
     -@eligible_games = Game.all
     =render :partial => 'eligible_games'
     %a.close-reveal-modal ×
-
-#ineligible.reveal-modal{"data-reveal" => ""}
-  %p You are not eligible to play #{@game.title} again until #{@eligibility_times[@game.id]}
-  -if @eligible_games.size > 1
-    %h5 You are currently elibile to play:
-    =render :partial => 'eligible_games'
-  -else
-    %h5 You are not eligible to play any further games at the moment. Come back in an hour to play again.
-  %a.close-reveal-modal ×
 
 :javascript
   $(document).on('ready page:load', function(){

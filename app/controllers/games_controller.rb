@@ -6,47 +6,21 @@ class GamesController < ApplicationController
 
   include ActionView::Helpers::DateHelper
   def show
-    @user_ranking = Ranking.where(:game_id => params[:id], :user_id => current_user.id).first if user_signed_in?
-    @best = Ranking.where(:game_id => params[:id]).order(score: :desc).limit(10)
-    @worst = Ranking.where(:game_id => params[:id]).order(:score).limit(10)
-    @streaks = @game.streaks.where(:direction=>"good").order(streak: :desc).limit(10)
+    #@user_ranking = Ranking.where(:game_id => params[:id], :user_id => current_user.id).first if user_signed_in?
+    #@best = Ranking.where(:game_id => params[:id]).order(score: :desc).limit(10)
+    #@worst = Ranking.where(:game_id => params[:id]).order(:score).limit(10)
+    #@streaks = @game.streaks.where(:direction=>"good").order(streak: :desc).limit(10)
     @comments = @game.comment_threads.order('created_at desc')
-    @eligible_games = [1,2,3,4]
-    @eligibility_times = []
     if user_signed_in?
       @new_comment = Comment.build_from(@game, current_user.id, "")
-
-      #get all games user is eligible to play
-
-      for i in 1..4
-        s = current_user.scores.where('game_id=? and created_at >= ?',i, 1.hours.ago).first
-        if s.present?
-          @eligible_games.delete(i)
-          @eligibility_times[i] = s.created_at + 1.hours
-        end
-      end
-
-    else
-      for i in 1..4
-        s = Score.where('game_id=? and created_at >= ? and session_id = ?',i, 1.hours.ago,cookies[:session_id]).first
-        if s.present?
-          @eligible_games.delete(i)
-          @eligibility_times[i] = s.created_at + 1.hours
-        end
-      end
     end
-    puts 'jhey'
-    puts @eligible_games
-    puts @game.id
-    # for card flip game
-    @values = (0..20).to_a.shuffle
-    @game_eligibility = @eligible_games.include?(@game.id)
+
 
   end
 
   def index
-    #@games = Game.all
-    redirect_to other_games_path
+     @games = Game.all
+    #redirect_to other_games_path
   end
 
   def init_score
@@ -145,7 +119,16 @@ class GamesController < ApplicationController
   end
 
   def load_resource_from_id
-    @game = Game.friendly.find(params[:id])
+    begin
+      @game = Game.friendly.find(params[:id])
+    rescue ActiveRecord::RecordNotFound => e
+      # for urls that end with -game
+      begin
+        @game = Game.friendly.find(params[:id][0..-6])
+      rescue ActiveRecord::RecordNotFound => e
+        redirect_to games_path
+      end
+    end
   end
 
 end

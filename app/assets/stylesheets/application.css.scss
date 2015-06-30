@@ -13,8 +13,6 @@
  *= require_tree .
  *= require_self
  *= require foundation_and_overrides
- *= require flipper
- *= require spinner
  *= require social-share-button
  */
 
@@ -137,9 +135,26 @@ font-size: 20px;
 .completion-message{
 	display: none;
 }
-.game-title {
+.upgrade-message {
+  background-color: #EC918A;
+  div {
+    padding: 8px 12px;
+  }
+}
+
+.feed-game-logo, .feed-game-body {
+  float: left;
+}
+.game {
+  position:relative;
+  clear:both;
+}
+
+h4.game-title {
   color: $dark-blue;
   font-weight: bold;
+  margin-top: 0px;
+  padding-top: 0px;
 }
 .game-desc, .game-inst {
   color: $dark-blue;

@@ -1,0 +1,11 @@
+.game[game]
+  -unless game.image_url.nil?
+    =link_to other_game_path(game) do
+      =image_tag(game.image_url)
+  %h4.game-title=game.title
+  .game-desc
+    =game.description
+  =link_to other_game_path(game) do
+    %button{:type => "submit"}
+      %i.fi-play
+      Play #{game.title}

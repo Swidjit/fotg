@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => { :registrations => "registrations", omniauth_callbacks: 'omniauth_callbacks' }
 
-  resources :games, :only => [:index,:show] do
+  resources 'free-online-typing-games', :as =>:games, :controller => :games, :only => [:index,:show] do
     member do
       post 'save_score'
       get 'init_score'

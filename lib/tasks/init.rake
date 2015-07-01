@@ -1,17 +1,6 @@
 namespace :init do
 
-  task :games => :environment do
-    Game.delete_all
-    @game = Game.new(:title => "Lottery",:description => "Choose 5 numbers for your lottery ticket.  Score points depending on how many matches you make.", :expected_score => 1.033, :avg => 0, :plays=>0, :logo_url => "dummy.png")
-    @game.save
-    @game = Game.new(:title => "Next in Line",:description => "Wait until the perfect moment to take your place in line and get a score based on your position", :expected_score => 3, :avg => 0, :plays=>0, :logo_url => "spot-in-time.png")
-    @game.save
-    @game = Game.new(:title => "Card Flip",:description => "Choose 3 cards to flip over to reveal their point values (1-20).  Your score is the sum of the 3 cards.", :expected_score => 30, :avg => 0, :plays=>0, :logo_url => "card-flip.png")
-    @game.save
-    @game = Game.new(:title => "Press On",:description => "Press your luck on and on until you land on the wrong square.", :expected_score => 35, :avg => 0, :plays=>0, :logo_url => "dummy.png")
-    @game.save
-  end
-  task :other_games => :environment do
+  task :add_games => :environment do
     Game.delete_all
     @game = Game.create(:title => "Typing Passage",:description => "This is a unique typing game roughly based on our Typing Tutor. The idea is that you have to work your way through 26 levels, each representing the introduction of a new key. ")
     @game = Game.create(:title => "Typing Trek",:description => "In this typing game, you will be using the keyboard to navigate around the grid and collect the targets. The grid is made up of a series of squares each of which contain a letter. ")
@@ -30,11 +19,6 @@ namespace :init do
     @game = Game.create(:title => "Typo",:description => "The goal is to type the text shown to you exactly as it appears. Any discrepancies between your keystrokes and the expected characters will be counted as typos.")
     #@game = Game.create(:title => "Typing Streak",:description => "Type the passage as long as you can without making a typo")
     #@game = Game.create(:title => "Whackey",:description => "React quickly and press the key before it disappears")
-
-
-
-
-
 
     OtherGame.delete_all
     @game = OtherGame.create(:title => "Typing Tidepool",:image_url => 'Typing-Tidepool.jpg',:description => "This combines a race game and a typing game. You are a dolphin swimming across the sea and you need to type words quickly to make your dolphin swim. There are lots of different difficulty levels and you can choose the one you want from the main menu screen. Feel free to skip the intro animation if you just want to get straight to playing the game.", :file_name => "Typing-Tidepool.swf")
@@ -56,7 +40,7 @@ namespace :init do
     @game = OtherGame.create(:title => "Type Master",:image_url => 'Type-Master.jpg',:description => "This is a simple little typing game / wpm typing test. You have a series of 10 phrases you need to type as quickly as possible after which it gives you a score and your WPM typing speed. The game has",:file_name => "Type-Master-Game.swf")
     @game = OtherGame.create(:title => "Typeroids",:image_url => 'Typeroids.png',:description => "This is a simple yet fun typing game in which you need to destroy the drifting asteroids by typing the letters contained therein. The asteroids come at you in waves and break apart into smaller pieces",:file_name => "Typeroids-Game.swf")
     @game = OtherGame.create(:title => "Typing Defense",:image_url => 'Typing-Defense-Game.jpg',:description => "Yet another game in the genre of Falling Words and Typer Shark where you need to quickly type to eliminate the moving words. In this particular game, you are trying to defend planet earth from attack by",:file_name => "typing-defense.swf")
-
+    #kids games
     @game = OtherGame.create(:title => "Farm Defender",:image_url => 'Farm-Defender.jpg',:description => "",:file_name => "Farm_Defender_Game.swf")
     @game = OtherGame.create(:title => "Spider Typer",:image_url => 'Spider_Typer.jpg',:description => "",:file_name => "Spider_Typer.swf")
     @game = OtherGame.create(:title => "Alpha Drop",:image_url => 'Alpha-Drop.jpg',:description => "",:file_name => "AlphaDrop_Game.swf")
@@ -64,17 +48,21 @@ namespace :init do
     @game = OtherGame.create(:title => "Keyman",:image_url => 'keyman.png',:description => "",:file_name => "keyman.swf")
     @game = OtherGame.create(:title => "Typing Tone",:image_url => 'Typing-Tone.png',:description => "",:file_name => "Typing_Tone.swf")
 
-
-
-
-
-
-
-    @game.save
+    @wpm = WpmTest.create(:title => "Bell Hooks", :difficulty_level => 3, :body => "Privilege is not in and of itself bad; what matters is what we do with privilege. I want to live in a world where all women have access to education, and all women can earn PhD’s, if they so desire. Privilege does not have to be negative, but we have to share our resources and take direction about how to use our privilege in ways that empower those who lack it.")
+    @wpm = WpmTest.create(:title => "Howard Zinn", :difficulty_level => 2, :body => "But by this time I was acutely conscious of the gap between law and justice. I knew that the letter of the law was not as important as who held the power in any real-life situation.")
+    @wpm = WpmTest.create(:title => "Junot Diaz", :difficulty_level => 2, :body => "We all know that there are language forms that are considered impolite and out of order, no matter what truths these languages might be carrying. If you talk with a harsh, urbanized accent and you use too many profanities, that will often get you barred from many arenas, no matter what you’re trying to say. On the other hand, polite, formal language is allowed almost anywhere even when all it is communicating is hatred and violence. Power always privileges its own discourse while marginalizing those who would challenge it or that are the victims of its power.")
+    @wpm = WpmTest.create(:title => "Kofi Annan", :difficulty_level => 2, :body => "Gender equality is more than a goal in itself. It is a precondition for meeting the challenge of reducing poverty, promoting sustainable development and building good governance.")
+    @wpm = WpmTest.create(:title => "Martin Luther King Jr", :difficulty_level => 1, :body => "I have a dream that my four little children will one day live in a nation where they will not be judged by the color of their skin but by the content of their character.")
+    @wpm = WpmTest.create(:title => "Alice Walker", :difficulty_level => 2, :body => "I think we have to own the fears that we have of each other, and then, in some practical way, some daily way, figure out how to see people differently than the way we were brought up to.")
+    @wpm = WpmTest.create(:title => "Chris Rock", :difficulty_level => 2, :body => "Yeah, I love being famous. It's almost like being white, y'know?")
+    @wpm = WpmTest.create(:title => "Roxane Gay", :difficulty_level => 2, :body => "You don't necessarily have to do anything once you acknowledge your privilege. You don't have to apologize for it. You need to understand the extent of your privilege, the consequences of your privilege, and remain aware that people who are different from you move through and experience the world in ways you might never know anything about.")
+    @wpm = WpmTest.create(:title => "Malcom Gladwell", :difficulty_level => 1, :body => "But we need to remember that our definition of what is right is, as often as not, simply the way that people in positions of privilege close the door on those on the outside.")
+    @wpm = WpmTest.create(:title => "Sonia Sotomayor", :difficulty_level => 1, :body => "Until we get equality in education, we won't have an equal society.")
 
   end
 
   task :set_friendly_ids => :environment do
+    Game.find_each(&:save)
     OtherGame.find_each(&:save)
     WpmTest.all.each do |tst|
       tst.slug = "wpm-test-#{tst.id}"

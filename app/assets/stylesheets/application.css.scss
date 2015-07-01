@@ -85,6 +85,21 @@ i {
   padding-right:12px !important;
   top: 5px !important;
 }
+.header-menu {
+  margin-top: 8px;
+  button {
+    margin-right: 2px;
+  }
+}
+h2.logo {
+  font-size: 30px;
+  line-height: 48px;
+}
+
+#sidebar {
+  padding-right: 5px;
+  text-align: center;
+}
 .stats-box {
   min-height: 120px;
   h3{
@@ -175,8 +190,11 @@ h4.game-title {
 ul.menu {
   list-style-type: none;
   li a {
-    font-size: 15px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #2b64b3;
   }
+
 }
 
 .top-bar .name h1 a {

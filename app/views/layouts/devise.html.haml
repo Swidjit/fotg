@@ -17,9 +17,8 @@
     %p.notice= notice
     %p.alert= alert
     .row
-      .large-3.columns
-        =render :partial => 'shared/sidebar'
-      .large-9.columns
+
+      .large-12.columns
         = yield
 
     =render :partial => 'shared/footer'

@@ -521,12 +521,7 @@
 		<changefreq>monthly</changefreq>
 		<priority>0.4</priority>
 	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/jeux-dactylographie/mpm-test-de-dactylographie/</loc>
-		<lastmod>2009-12-08T20:42:55+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.4</priority>
-	</url>
+
 
 	<url>
 		<loc>http://freeonlinetypinggames.com/wpm-typing-tests/wpm-typing-test-3/</loc>
@@ -557,12 +552,6 @@
 	<url>
 		<loc>http://freeonlinetypinggames.com/licensing-games/</loc>
 		<lastmod>2009-08-28T11:00:24+00:00</lastmod>
-		<changefreq>yearly</changefreq>
-		<priority>0.7</priority>
-	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/get-games/</loc>
-		<lastmod>2009-08-28T10:58:24+00:00</lastmod>
 		<changefreq>yearly</changefreq>
 		<priority>0.7</priority>
 	</url>
@@ -848,22 +837,13 @@
 		<changefreq>yearly</changefreq>
 		<priority>0.7</priority>
 	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/linking-to-us/</loc>
-		<lastmod>2008-10-18T08:15:48+00:00</lastmod>
-		<changefreq>yearly</changefreq>
-		<priority>0.7</priority>
-	</url>
+
 	<url>
 		<loc>http://freeonlinetypinggames.com/typing-games/typing-resources/</loc>
 		<changefreq>weekly</changefreq>
 		<priority>0.5</priority>
 	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/typing-games/jeux-dactylographie/</loc>
-		<changefreq>weekly</changefreq>
-		<priority>0.5</priority>
-	</url>
+
 	<url>
 		<loc>http://freeonlinetypinggames.com/typing-games/kids-typing/</loc>
 		<changefreq>weekly</changefreq>
@@ -916,174 +896,7 @@
 		<changefreq>weekly</changefreq>
 		<priority>0.5</priority>
 	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/2011/12/</loc>
-		<lastmod>2011-12-27T00:51:47+00:00</lastmod>
-		<changefreq>weekly</changefreq>
-		<priority>0.1</priority>
-	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/2011/08/</loc>
-		<lastmod>2011-08-29T20:20:19+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.1</priority>
-	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/2011/04/</loc>
-		<lastmod>2011-04-12T14:09:16+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.1</priority>
-	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/2011/02/</loc>
-		<lastmod>2011-02-18T15:41:55+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.1</priority>
-	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/2011/01/</loc>
-		<lastmod>2011-01-30T14:45:46+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.1</priority>
-	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/2010/12/</loc>
-		<lastmod>2010-12-23T05:37:10+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.1</priority>
-	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/2010/11/</loc>
-		<lastmod>2010-11-26T05:06:17+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.1</priority>
-	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/2010/10/</loc>
-		<lastmod>2010-10-25T20:33:54+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.1</priority>
-	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/2010/09/</loc>
-		<lastmod>2010-09-30T20:01:12+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.1</priority>
-	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/2010/08/</loc>
-		<lastmod>2010-08-28T18:30:03+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.1</priority>
-	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/2010/07/</loc>
-		<lastmod>2010-07-13T16:33:27+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.1</priority>
-	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/2010/06/</loc>
-		<lastmod>2010-06-22T14:49:05+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.1</priority>
-	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/2010/03/</loc>
-		<lastmod>2010-03-29T12:47:00+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.1</priority>
-	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/2010/02/</loc>
-		<lastmod>2010-02-23T15:33:52+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.1</priority>
-	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/2010/01/</loc>
-		<lastmod>2010-01-25T22:20:06+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.1</priority>
-	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/2009/12/</loc>
-		<lastmod>2009-12-18T16:21:54+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.1</priority>
-	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/2009/11/</loc>
-		<lastmod>2009-11-17T15:26:20+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.1</priority>
-	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/2009/10/</loc>
-		<lastmod>2009-10-21T14:03:09+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.1</priority>
-	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/2009/09/</loc>
-		<lastmod>2009-09-13T05:07:24+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.1</priority>
-	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/2009/08/</loc>
-		<lastmod>2009-08-29T20:12:05+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.1</priority>
-	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/2009/07/</loc>
-		<lastmod>2009-07-22T04:20:04+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.1</priority>
-	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/2009/06/</loc>
-		<lastmod>2009-06-20T15:01:08+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.1</priority>
-	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/2009/05/</loc>
-		<lastmod>2009-05-27T06:18:55+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.1</priority>
-	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/2009/02/</loc>
-		<lastmod>2009-02-28T18:03:23+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.1</priority>
-	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/2009/01/</loc>
-		<lastmod>2009-01-12T18:40:09+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.1</priority>
-	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/2008/12/</loc>
-		<lastmod>2008-12-29T07:21:30+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.1</priority>
-	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/2008/11/</loc>
-		<lastmod>2008-11-30T23:38:33+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.1</priority>
-	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/2008/10/</loc>
-		<lastmod>2008-10-26T02:32:31+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.1</priority>
-	</url>
+
 	<url>
 		<loc>http://freeonlinetypinggames.com/games/accuracy/</loc>
 		<changefreq>weekly</changefreq>
@@ -1254,11 +1067,7 @@
 		<changefreq>weekly</changefreq>
 		<priority>0.1</priority>
 	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/games/jeuxs-en-ligne/</loc>
-		<changefreq>weekly</changefreq>
-		<priority>0.1</priority>
-	</url>
+
 	<url>
 		<loc>http://freeonlinetypinggames.com/games/key-master/</loc>
 		<changefreq>weekly</changefreq>
@@ -1464,11 +1273,7 @@
 		<changefreq>weekly</changefreq>
 		<priority>0.1</priority>
 	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/games/practice-keyboarding-skills/</loc>
-		<changefreq>weekly</changefreq>
-		<priority>0.1</priority>
-	</url>
+
 	<url>
 		<loc>http://freeonlinetypinggames.com/games/practice-typing/</loc>
 		<changefreq>weekly</changefreq>
@@ -1591,11 +1396,6 @@
 	</url>
 	<url>
 		<loc>http://freeonlinetypinggames.com/games/typing/</loc>
-		<changefreq>weekly</changefreq>
-		<priority>0.1</priority>
-	</url>
-	<url>
-		<loc>http://freeonlinetypinggames.com/games/typing-activities/</loc>
 		<changefreq>weekly</changefreq>
 		<priority>0.1</priority>
 	</url>

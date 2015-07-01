@@ -215,14 +215,15 @@ ul.menu {
   padding-left: 6px;
   color: $dark-blue;
   line-height: 30px;
-  height: 60px;
+  height: 90px;
   overflow-y:hidden;
   overflow-x: hidden;
   padding: 4px 6px;
+  word-wrap: none;
 }
 
 #output-text {
-  top: -60px;
+  top: -90px;
   position:relative;
 }
 

@@ -33,13 +33,12 @@ Rails.application.routes.draw do
   get 'typing-test' => 'wpm_tests#index'
   get '/:page_name' => 'pages#index', :as => :pages
 
-  get 'kids-typing/:game' => 'other_games#show'
+  get 'kids-typing/:id' => 'other_games#show'
   get 'typing-games-for-kids/:game' => 'kids_games#index'
 
-
+  get 'typing-arcade/*all' => 'games#index'
   get 'typing-news/:title' => 'typing_news#index'
   get 'miscellaneous-typing-news/:title' => 'typing_news#index'
-
   get 'typing-resources/:title' => 'typing_resources#index'
   get 'more-typing-practice/:title' => 'typing_resources#index'
   match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup

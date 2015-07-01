@@ -100,6 +100,7 @@ h2.logo {
   padding-right: 5px;
   text-align: center;
 }
+
 .stats-box {
   min-height: 120px;
   h3{
@@ -186,38 +187,72 @@ h4.game-title {
 	display:inline;
 	color: $dark-blue;
 }
-
+#menu {
+  margin: 10px 0;
+}
 ul.menu {
   list-style-type: none;
   li a {
     font-size: 17px;
     font-weight: bold;
     color: #2b64b3;
+    width: 20%;
+    float: left;
+    text-align:center;
   }
+  li a:hover {
+    background-color: #eee;
 
+  }
 }
 
 .top-bar .name h1 a {
   font-weight: 500;
 
 }
-
 #target-text, #output-text {
-  position: absolute;
-  top: 80px;
-  font-size: 35px;
+  font-size: 22px;
   padding-left: 6px;
+  color: $dark-blue;
+  line-height: 30px;
+  height: 60px;
+  overflow-y:hidden;
+  overflow-x: hidden;
+  padding: 4px 6px;
 }
-#output-text {
-  color: red;
 
+#output-text {
+  top: -60px;
+  position:relative;
 }
-input#entry {
+
+/* wpm test */
+#wpm {
+  margin-top: 15px;
+  label {
+    font-size: 17px;
+    color: $red;
+  }
+}
+#stopwatch {
+font-size: 20px;
+font-weight: 700;
+margin-top: 10px;
+}
+
+#entry {
   position: relative;
   border: 0px;
-  font-size: 35px;
-  line-height: 60px;
+  font-size: 22px;
+  line-height: 30px;
   height: auto;
+  cursor: pointer;
+  height: 60px;
+  overflow-y: hidden;
+  top: -25px;
+  border: 1px solid #ddd;
+  padding: 4px 6px;
+
 }
 #user-menu-icon {
   i {
@@ -261,7 +296,7 @@ input#entry {
   }
 }
 
-.score-raw,.score-relative, .score-percentile {
+.wpm-value, .time-value, .errors-value,{
   width: 31%;
   padding: 0 1%;
   display: inline-block;

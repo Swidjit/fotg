@@ -9,7 +9,7 @@
   %meta{:property => "description", :content => "Test your words-per-minute (WPM) typing speed  as you type powerful and important quotes."}
   %meta{:property => 'keywords', :content => '#{@game.itle}, typing, wpm, speed, test'}
 .row
-  .large-9.columns
+  .large-12.columns
     .row
       .large-6.columns
         %h3.game-title
@@ -17,33 +17,39 @@
           .fb-share-button{"data-href" => "https://developers.facebook.com/docs/plugins/", "data-layout" => "button"}
         %h4=@game.title
       .large-6.columns
-        .game-score.right
-          .score-label Score:
-          .score-value 0
-
-    .ad
-      %script{:async => "", :src => "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"}
-      / good luck - above game
-      %ins.adsbygoogle{"data-ad-client" => "ca-pub-1203319491225179", "data-ad-format" => "auto", "data-ad-slot" => "5098510223", :style => "display:block"}
-      :javascript
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    .section-container.tabs{"data-section" => ""}
-      %section.section
-        .content{"data-slug" => "panel1"}
+        #stopwatch.right
+      .large-12.columns
+        %script{:async => "", :src => "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"}
+        / good luck - above game
+        %ins.adsbygoogle{"data-ad-client" => "ca-pub-1203319491225179", "data-ad-format" => "auto", "data-ad-slot" => "5098510223", :style => "display:block"}
+        :javascript
+          (adsbygoogle = window.adsbygoogle || []).push({});
+    .row
+      .large-12.columns
+        #wpm
           -if !user_signed_in? || @eligible_games.include?(@game.id)
-            #stopwatch
-            %input#entry{:type => "text", :placeholder => "type here"}
+
+            %label Type this passage:
+
+
             #target-text
               =@game.body
             #output-text
+              =@game.body
+            #entry{:type => "text", :contentEditable => "true"}
+              type here
+
+
+            %label Press enter to submit
             #wpm
             %div#errors
           -else
             =render :partial => 'ineligible'
-      %section.section
+    .row
+      .large-6.columns
         %h4.title Tell Your Friends!
         =social_share_button_tag(@game.title)
-      %section.section
+      .large-6.columns
         %h5.title
           %a{:href => "#panel2"} Comments
         .content{"data-slug" => "panel2"}
@@ -82,18 +88,32 @@
 -else
   #gameComplete.reveal-modal{"data-reveal" => ""}
     .green{:style =>"padding: 4px 15px 1px; margin: 0 10px 12px 0;"}
+      .results
+        %label WPM
+        %label # errors
+        %label time
+        .wpm-value
+        .errors-value
+        .time-value
+    .row
+      .large-6.columns
+        %p You are playing as a guest.  Login now and we will save your score to your new account and you can start tracking your luck.
 
-      %h4{:style=>"font-size:: 25px;"}
-        You are playing as a guest.  Login now and we will save your score to your new account and you can start tracking your luck.
-        .score-value 0
-      =link_to new_user_session_path do
-        %button.radius.button Login
-      =link_to new_user_registration_path do
-        %button.radius.button Signup
-
-    %h5 Or, try out other games as a guest:
-    -@eligible_games = Game.all
-    =render :partial => 'eligible_games'
+        =link_to new_user_session_path do
+          %button.radius.button Login
+        =link_to new_user_registration_path do
+          %button.radius.button Signup
+        %h5 Or, try out another WPM game as a test
+        -num = Random.new
+        -game_num = num.rand(1..WpmTest.all.count)
+        -@wpm = WpmTest.find(game_num)
+        =link_to 'test my speed again', @wpm, :class => "button"
+      .large-6.columns
+        %script{:async => "", :src => "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"}
+        / wpm end game
+        %ins.adsbygoogle{"data-ad-client" => "ca-pub-1203319491225179", "data-ad-format" => "auto", "data-ad-slot" => "4681427428", :style => "display:block"}
+        :javascript
+          (adsbygoogle = window.adsbygoogle || []).push({});
     %a.close-reveal-modal ×
 
 #ineligible.reveal-modal{"data-reveal" => ""}
@@ -109,11 +129,19 @@
   $(document).on('ready page:load', function(){
       var start_time, end_time;
       var started = false;
-      $('input#entry').focus();
-      $('input#entry').bind("cut copy paste",function(e) {
+
+      $('#entry').bind("cut copy paste",function(e) {
           e.preventDefault();
       });
-      $('input#entry').on("keyup", function(event) {
+      $('#entry').on('focus', function() {
+        $('#entry').text('');
+      });
+      $('#entry').on('scroll', function() {
+        $('#target-text').scrollTop($(this).scrollTop());
+        $('#output-text').scrollTop($(this).scrollTop());
+      });
+
+      $('#entry').on("keyup", function(event) {
         if(!started) {
           started = true;
           start_time = new Date().getTime();
@@ -121,7 +149,7 @@
         }
 
         var keycode = (event.keyCode ? event.keyCode : event.which);
-        if($(this).val() == $.trim($('#target-text').text())) {
+        if($.trim($(this).text()) == $.trim($('#target-text').text())) {
           //ok, its a match
           length = Example1.getTime();
           Example1.Timer.stop();
@@ -129,20 +157,22 @@
         }
         if(keycode == '13'){
           //you submitted it
-          $('input#entry').prop('disabled', true);
+          $('#entry').prop('disabled', true);
           length = Example1.getTime();
           Example1.Timer.stop();
 
           //calculate wpm
           end_time = new Date().getTime();
           elapsed_time = (end_time-start_time)/60000;
-          console.log(elapsed_time);
+          elapsed_seconds = (end_time-start_time)/1000;
           wpm = ($(this).val().length/5)/elapsed_time;
-          $('#wpm').text(wpm.toFixed(2));
+          $('.wpm-value').text(wpm.toFixed(2));
+          $('.time-value').text(elapsed_seconds.toFixed(2));
 
           //count errors
           errors = 0;
-          txt = $(this).val();
+          txt = $(this).text();
+          console.log(txt);
           target = $.trim($('#target-text').text());
           for (var i = 0, len = txt.length; i < len; i++) {
             if(txt[i]==target[i]) {
@@ -152,20 +182,23 @@
               errors++;
             }
           }
-          $('#errors').text(errors);
+          $('.errors-value').text(errors);
+          $('#gameComplete').foundation('reveal','open');
         }
-        showTextErrors($(this).val());
+        showTextErrors($(this).text());
       });
 
       function showTextErrors(txt) {
         html = "";
         target = $.trim($('#target-text').text());
         for (var i = 0, len = txt.length; i < len; i++) {
-          if(txt[i]==target[i]) {
-             html += "<span>" + txt[i] + "</span>";
-          }
-          else {
-            html += "<span style='color:red'>" + target[i] + "</span>";
+          if(i <= target.length) {
+            if(txt[i]==target[i]) {
+               html += "<span>" + txt[i] + "</span>";
+            }
+            else {
+              html += "<span style='color:red'>" + target[i] + "</span>";
+            }
           }
         }
 

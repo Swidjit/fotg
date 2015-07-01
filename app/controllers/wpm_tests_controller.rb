@@ -16,7 +16,7 @@ class WpmTestsController < ApplicationController
       @eligible_games = @eligible_games - @recently_played
 
     else
-      @new_comment = Comment.build_from(@game, current_user.id, "")
+
       @recently_played = Score.where('session_id=? and scoreable_type=? and created_at >= ?',cookies[:session_id],@game.class, 1.weeks.ago).map(&:scoreable_id)
       @eligible_games = @eligible_games - @recently_played
     end

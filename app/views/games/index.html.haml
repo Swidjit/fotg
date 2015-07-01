@@ -1,15 +1,20 @@
 -content_for :head do
   %title Games and Tests of Luck
-  %meta{:content => "Test Your Luck | Is your luck good or bad?", :property => "og:title"}
-  %meta{:content => "Good Luck", :property => "og:site_name"}
-  %meta{:content => "Four simple and fun games to see how lucky uou are compared to others across the internet?", :property => "og:description"}
-  %meta{:content => "Test Your Luck | Is your luck good or bad?", :property => "title"}
-  %meta{:property => "description", :content => 'Four simple and fun games to see how lucky uou are compared to others across the internet?'}
-  %meta{:property => 'keywords', :content => 'luck, games. tests, good, am i lucky'}
+  %meta{:content => "Original Typing Games | Keyboard Playground", :property => "og:title"}
+  %meta{:content => "Free Online Typing Games", :property => "og:site_name"}
+  %meta{:content => "15 original typing games to help you learn keyboarding skills", :property => "og:description"}
+  %meta{:content => "Original Typing Games | Keyboard Playground", :property => "title"}
+  %meta{:property => "description", :content => '15 original typing games to help you learn keyboarding skills'}
+  %meta{:property => 'keywords', :content => 'typing, games, online, free, type, play, keyboarding'}
 
 .row
 
   .large-12.columns
+    %script{:async => "", :src => "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"}
+    / fotg page header
+    %ins.adsbygoogle{"data-ad-client" => "ca-pub-1203319491225179", "data-ad-format" => "auto", "data-ad-slot" => "1802013024", :style => "display:block"}
+    :javascript
+      (adsbygoogle = window.adsbygoogle || []).push({});
     -@games.each do |game|
       =render game
 

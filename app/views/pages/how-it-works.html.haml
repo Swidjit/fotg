@@ -1,12 +1,5 @@
 -content_for :head do
-  %title Test your luck against others
-  %meta{:content => "Test Your Luck", :property => "og:title"}
-  %meta{:content => "Good Luck", :property => "og:site_name"}
-  %meta{:content => "Take hourly luck tests and see how you luck compares to people across the world.", :property => "og:description"}
-  %meta{:content => 'Good Luck Test', :property => "title"}
-  %meta{:property => "description", :content => 'Is it your lucky day?  Is your overall luck good or bad? Test your luck with these fun quick games and see how lucky you are compared to others across the world. '}
-  %meta{:property => 'keywords', :content => 'luck,lucky,good,test,how,game,crowd'}
-
+  =render :partial => 'standard_meta'
 .row
   .large-12.columns
     %h2 How it Works

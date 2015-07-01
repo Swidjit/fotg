@@ -1,13 +1,13 @@
 :javascript
   var eligible = '#{@game_eligibility}';
 -content_for :head do
-  %title #{@game.title} | A Luck Test
-  %meta{:content => "#{@game.title} | A Luck Test", :property => "og:title"}
-  %meta{:content => "Good Luck", :property => "og:site_name"}
+  %title #{@game.title} | A Typing Game
+  %meta{:content => "#{@game.title} Game | Keyboard Playground", :property => "og:title"}
+  %meta{:content => "Free Online Typing Games", :property => "og:site_name"}
   %meta{:content => "#{@game.description}", :property => "og:description"}
-  %meta{:content => "World's Luckiest People", :property => "title"}
+  %meta{:content => "#{@game.title} Game | Keyboard Playground", :property => "title"}
   %meta{:property => "description", :content => "#{@game.description}"}
-  %meta{:property => 'keywords', :content => '#{@game.itle}, luck, games, test, exam, play'}
+  %meta{:property => 'keywords', :content => '#{@game.itle}, typing, game, keyboarding, practice, play, online'}
 .row
   .large-12.columns
     .row

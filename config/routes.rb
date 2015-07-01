@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources 'kids-games', :as=> :other_games, :controller => :kids_games, :only => [:index,:show]
+
   resources :comments, :only => [:create, :destroy]
 
   root :to => 'pages#home'
@@ -33,6 +35,7 @@ Rails.application.routes.draw do
 
   get 'kids-typing/:game' => 'other_games#show'
   get 'typing-games-for-kids/:game' => 'kids_games#index'
+
 
   get 'typing-news/:title' => 'typing_news#index'
   get 'miscellaneous-typing-news/:title' => 'typing_news#index'

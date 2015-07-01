@@ -1,11 +1,11 @@
 -content_for :head do
-  %title Games and Tests of Luck
-  %meta{:content => "Test Your Luck | Is your luck good or bad?", :property => "og:title"}
-  %meta{:content => "Good Luck", :property => "og:site_name"}
-  %meta{:content => "Four simple and fun games to see how lucky uou are compared to others across the internet?", :property => "og:description"}
-  %meta{:content => "Test Your Luck | Is your luck good or bad?", :property => "title"}
-  %meta{:property => "description", :content => 'Four simple and fun games to see how lucky uou are compared to others across the internet?'}
-  %meta{:property => 'keywords', :content => 'luck, games. tests, good, am i lucky'}
+  %title WPM Typing Speed Tests
+  %meta{:content => "WPM Typing Speed Tests | Keyboard Playground", :property => "og:title"}
+  %meta{:content => "Free Online Typing Games", :property => "og:site_name"}
+  %meta{:content => "Test your words-per-minute (WPM) typing speed  as you type powerful and important quotes.", :property => "og:description"}
+  %meta{:content => "WPM Typing Speed Tests| Keyboard Playground", :property => "title"}
+  %meta{:property => "description", :content => "Test your words-per-minute (WPM) typing speed  as you type powerful and important quotes."}
+  %meta{:property => 'keywords', :content => '#{@game.itle}, typing, wpm, speed, test, words, per, minute'}
 
 .row
   -@games.each do |game|

@@ -2,14 +2,14 @@
   .large-12.columns
     %hr/
     .row
-      .large-6.columns
-        %p © Copyright A Playground for the Mind
-      .large-6.columns
-        %ul.inline-list.right
+      .large-12.columns
+        %ul.inline-list.left
           %li
-            =link_to "About", pages_path("overview")
+            =link_to "About", pages_path("about")
           %li
             =link_to "How it Works", pages_path("how-it-works")
+          %li
+            =link_to "Licensing Games", pages_path("licensing-games")
           %li
             =link_to "Privacy Policy", pages_path("privacy")
           %li
@@ -18,6 +18,9 @@
             %li
               = link_to "Log out", destroy_session_path(:user), :method => :delete
 
+
+      .large-12.columns
+        %p © Copyright A Playground for the Mind
 
 :javascript
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

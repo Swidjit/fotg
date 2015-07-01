@@ -1,11 +1,12 @@
-.game[game]
-  -unless game.image_url.nil?
+.row.game[game]
+  .large-2.columns
     =link_to other_game_path(game) do
-      =image_tag(game.image_url)
-  %h4.game-title=game.title
-  .game-desc
-    =game.description
-  =link_to other_game_path(game) do
-    %button{:type => "submit"}
-      %i.fi-play
-      Play #{game.title}
+      =image_tag("#{game.title.gsub(' ','-')}.jpg", :style=>"margin-top: 7px;")
+  .large-10.columns
+    %h4.game-title=game.title
+    .game-desc
+      =game.description
+    =link_to other_game_path(game) do
+      %button{:type => "submit"}
+        %i.fi-play
+        Play #{game.title}

@@ -147,7 +147,7 @@ font-size: 20px;
 }
 .game {
   position:relative;
-  clear:both;
+
 }
 
 h4.game-title {
@@ -170,6 +170,18 @@ h4.game-title {
 .score-value, .score-label {
 	display:inline;
 	color: $dark-blue;
+}
+
+ul.menu {
+  list-style-type: none;
+  li a {
+    font-size: 15px;
+  }
+}
+
+.top-bar .name h1 a {
+  font-weight: 500;
+
 }
 
 #target-text, #output-text {

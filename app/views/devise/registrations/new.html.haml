@@ -1,5 +1,5 @@
-%h2.centered{:style=>"margin-bottom: 0px;"} How lucky are you?
-%h4.centered{:style => "color: #222;"} Compare your luck to others from around the world.
+%h2.centered{:style=>"margin-bottom: 0px;"} Improve your typing skills
+%h4.centered{:style => "color: #222;"} And have some fun while doing so...
 .login-form
   = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
     = devise_error_messages!
@@ -18,9 +18,7 @@
       = f.label :password_confirmation
       = f.password_field :password_confirmation, autocomplete: "off"
     = f.submit "Sign up", :class => "button"
-    or
-    =link_to 'users/omniauth/facebook/' do
-      %button Register via Facebook
+
     %div=link_to "Already have an account?", new_user_session_path
 :javascript
   $('#session-id').val($.cookie("session_id"));

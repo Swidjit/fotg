@@ -1,13 +1,13 @@
 :javascript
   var eligible = '#{@game_eligibility}';
 -content_for :head do
-  %title #{@game.title} | A Luck Test
-  %meta{:content => "#{@game.title} | A Luck Test", :property => "og:title"}
-  %meta{:content => "Good Luck", :property => "og:site_name"}
-  %meta{:content => "Test your typing speed and see how many words per minute (WPM) you can type", :property => "og:description"}
-  %meta{:content => "World's Luckiest People", :property => "title"}
-  %meta{:property => "description", :content => "Test your typing speed and see how many words per minute (WPM) you can type"}
-  %meta{:property => 'keywords', :content => '#{@game.itle}, luck, games, test, exam, play'}
+  %title #{@game.title} | A WPM Test
+  %meta{:content => "#{@game.title} WPM Test | Keyboard Playground", :property => "og:title"}
+  %meta{:content => "Free Online Typing Games", :property => "og:site_name"}
+  %meta{:content => "Test your words-per-minute (WPM) typing speed  as you type powerful and important quotes.", :property => "og:description"}
+  %meta{:content => "#{@game.title} WPM Test| Keyboard Playground", :property => "title"}
+  %meta{:property => "description", :content => "Test your words-per-minute (WPM) typing speed  as you type powerful and important quotes."}
+  %meta{:property => 'keywords', :content => '#{@game.itle}, typing, wpm, speed, test'}
 .row
   .large-9.columns
     .row

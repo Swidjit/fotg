@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150629024130) do
+ActiveRecord::Schema.define(version: 20150708220911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(version: 20150629024130) do
     t.integer  "session_id"
     t.integer  "scoreable_id"
     t.string   "scoreable_type"
+    t.integer  "game_session"
   end
 
   create_table "spot_values", force: true do |t|

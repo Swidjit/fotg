@@ -1,0 +1,41 @@
+.row
+
+  .large-12.columns
+    .score-panel
+      %h4.score-value
+      -if !user_signed_in?
+        %p{:style=>"font-size: 16px; line-height: 18px; margin-top: 14px;color: gray;"}
+          You are playing as a guest.  Login now and we will save your score to your new account and you can start tracking your luck.
+        =link_to new_user_session_path do
+          %button.radius.button.tiny Login
+        =link_to new_user_registration_path do
+          %button.radius.button.tiny Signup
+      -else
+
+
+  .large-6.columns
+
+    %h5{:style=>"margin-top: 15px;"} What to do next?
+    =link_to "#" do
+      %button#play-again.button Try this game again
+    =link_to games_path do
+      %button.radius.button Play a different game
+
+
+  .large-6.columns
+    .game-over-ad
+      %script{:async => "", :src => "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"}
+      / fotg game over
+      %ins.adsbygoogle{"data-ad-client" => "ca-pub-1203319491225179", "data-ad-format" => "rectangle", "data-ad-slot" => "7951657821", :style => "display:block"}
+      :javascript
+        (adsbygoogle = window.adsbygoogle || []).push({});
+:javascript
+
+  $('#play-again').on('click', function() {
+      initGame();
+      initScore();
+      $('#game').show();
+      $('#results').html('');
+      $('#resume').hide();
+      $('#pause').show();
+    });

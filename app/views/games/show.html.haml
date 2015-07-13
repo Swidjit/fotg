@@ -11,39 +11,45 @@
 .row
   .large-12.columns
     .row
-      .large-6.columns
+      .large-12.columns
         %h3.game-title
           =@game.title
-          .fb-share-button{"data-href" => "https://developers.facebook.com/docs/plugins/", "data-layout" => "button"}
+          =social_share_button_tag(@game.title)
 
-      .large-6.columns
-        .game-score.right
-          .score-label Score:
-          .score-value 0
-    .game-desc
-      =@game.description
-    .ad
-      %script{:async => "", :src => "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"}
-      / fotg page header
-      %ins.adsbygoogle{"data-ad-client" => "ca-pub-1203319491225179", "data-ad-format" => "auto", "data-ad-slot" => "1802013024", :style => "display:block"}
-      :javascript
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    #game
-      =render :partial => "#{@game.title.downcase.gsub(' ', '_')}"
-      %section.section
-        %h4.title Tell Your Friends!
-        =social_share_button_tag(@game.title)
-      %section.section
-        %h5.title
-          %a{:href => "#panel2"} Comments
-        .content{"data-slug" => "panel2"}
-          .comments
-            -if user_signed_in?
-              = render :partial => 'comments/form', :locals => { :comment => @new_comment }
-            = render :partial => 'comments/comment', :collection => @comments, :as => :comment
-          .comment-bottom
-  .large-3.columns
+    .row
+      .large-8.columns
 
+        #game-desc
+          =@game.description
+        #results
+        #game
+          =render :partial => "#{@game.title.downcase.gsub(' ', '_')}"
+        %button#begin Start Typing
+        %button#resume.game-control Resume Game
+        %button#pause.game-control Pause
+      .large-4.columns
+        %div{:style => "width: 100%;"}
+          %script{:async => "", :src => "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"}
+          / game instructions
+          %ins.adsbygoogle{"data-ad-client" => "ca-pub-1203319491225179", "data-ad-format" => "auto", "data-ad-slot" => "1185270621", "data-ad-format" => "rectangle", :style => "display:block"}
+          :javascript
+            (adsbygoogle = window.adsbygoogle || []).push({});
+
+    .row
+      .large-8.columns
+        #comments
+          %h5.title
+            %a{:href => "#panel2"} Comments
+          .content{"data-slug" => "panel2"}
+            .comments
+              -if user_signed_in?
+                = render :partial => 'comments/form', :locals => { :comment => @new_comment }
+              = render :partial => 'comments/comment', :collection => @comments, :as => :comment
+            .comment-bottom
+      .large-4.columns
+        %h4 High Scores
+        #high-scores
+          =render @high_scores
 #myModal.reveal-modal{"data-reveal" => ""}
   %h2 You are not signed in
   %p.lead You'll need to register to participate
@@ -52,35 +58,17 @@
   =link_to new_user_registration_path do
     %button.radius.button Signup
   %a.close-reveal-modal ×
--if user_signed_in?
-  #gameComplete.reveal-modal{"data-reveal" => ""}
-    .green{:style =>"padding: 4px 15px 1px; margin: 0 10px 12px 0;"}
 
-      .results
-        %label score
-        %label normalized score
-        %label score percentile
-        .score-raw
-        .score-relative
-        .score-percentile
-        .streak-msg
-    %a.close-reveal-modal ×
--else
-  #gameComplete.reveal-modal{"data-reveal" => ""}
-    .green{:style =>"padding: 4px 15px 1px; margin: 0 10px 12px 0;"}
+#roundComplete.reveal-modal{"data-reveal" => ""}
+  .green{:style =>"padding: 4px 15px 1px; margin: 0 10px 12px 0;"}
 
-      %h4{:style=>"font-size:: 25px;"}
-        You are playing as a guest.  Login now and we will save your score to your new account and you can start tracking your luck.
-        .score-value 0
-      =link_to new_user_session_path do
-        %button.radius.button Login
-      =link_to new_user_registration_path do
-        %button.radius.button Signup
+    %h4{:style=>"font-size:: 25px;"}
+      You are playing as a guest.  Login now and we will save your score to your new account and you can start tracking your luck.
+    .round-score-value 0
+    .total-score-value 0
+    %button#continue Next Round
 
-    %h5 Or, try out other games as a guest:
-    -@eligible_games = Game.all
-    =render :partial => 'eligible_games'
-    %a.close-reveal-modal ×
+  %a.close-reveal-modal ×
 
 :javascript
   $(document).on('ready page:load', function(){
@@ -119,4 +107,92 @@
         console.log(response);
       });
     });
+    $('#continue').on('click', function() {
+      nextRound();
+    });
+    $('#begin').on('click', function() {
+      initGame();
+      initScore();
+      $('#game').show();
+      $('.game-control').show();
+      $('#results').html();
+      $('#resume').hide();
+      $('#pause').show();
+    });
+    $('#pause').on('click', function() {
+      pauseGame();
+      $('#pause').hide();
+      $('#resume').show();
+    });
+    $('#resume').on('click', function() {
+      resumeGame();
+      $('#resume').hide();
+      $('#pause').show();
+    });
+    $('#play-again').on('click', function() {
+      initGame();
+      initScore();
+    });
   });
+
+  function initScore() {
+    game_session = parseInt(Math.random() * 10000000);
+    $.get('#{init_score_game_path(@game.id)}?game_session='+game_session);
+  }
+
+  function saveScore() {
+    var data = {
+      score: score,
+      game_session: game_session
+    }
+    $.post('#{save_score_game_path(@game.id)}', data);
+  }
+
+  function gameOver() {
+
+    $('#results').html();
+
+    $('#results').append('#{escape_javascript render :partial=>"end_of_game_ad"}');
+    $('#game').hide();
+    $('.game-control').hide();
+    calculateScore();
+  }
+
+:css
+  #pause,#resume {
+    display:none;
+    margin-top: 15px;
+  }
+  #begin {
+    margin-top: 15px;
+  }
+  #game {
+    button {
+
+    }
+  }
+  #game {
+    position: relative;
+
+  }
+  #ad {
+    position:fixed;
+  }
+  .social-share-button {
+    margin-left: 15px;
+    display: inline;
+  }
+  .score-value {
+    padding: 4px 9px;
+    background-color: red;
+    font-weight: 600;
+    color: #000;
+    margin: 15px 0 20px;
+    display:block;
+  }
+
+  .score-panel {
+    background-color: beige;
+    padding: 1px 13px 8px 13px;
+    margin-bottom: 5px;
+  }

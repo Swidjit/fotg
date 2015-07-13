@@ -14,6 +14,7 @@ class GamesController < ApplicationController
     if user_signed_in?
       @new_comment = Comment.build_from(@game, current_user.id, "")
     end
+    @high_scores = @game.scores.order(value: :desc).take(10)
 
 
   end
@@ -27,7 +28,7 @@ class GamesController < ApplicationController
     if user_signed_in?
       @score = Score.new(:game=>@game, :user=>current_user, :value=>-1)
     else
-      @score = Score.new(:game=>@game, :session_id=>params[:session_id], :value=>-1)
+      @score = Score.new(:scoreable_id=>@game.id,:scoreable_type => 'Game', :session_id=>cookies[:session_id].to_i, :game_session => params[:game_session],:value=>-1)
     end
     @score.save
     @score.value = -1
@@ -40,48 +41,19 @@ class GamesController < ApplicationController
 
   def save_score
     if user_signed_in?
-      @score = Score.where(:game=>@game, :user=>current_user, :value=>-1).last
+      @score = Score.where(:scoreable_id=>@game.id,:scoreable_type => 'Game', :user=>current_user, game_session=>params[:game_session]).last
       @score.value = params[:score]
       if @score.save!
-        @game.increment!(:plays)
-        @game_stat = GameStat.where(:game_id => @score.game.id, :user_id => current_user.id).first
-        if @game_stat.present?
-          new_score = @game_stat.total + @score.value
-          play_count = @game_stat.plays + 1
-          new_avg = new_score/play_count.to_f
-          @game_stat.assign_attributes(:total=> new_score, :plays => play_count, :avg => new_avg)
-        else
-          @game_stat = GameStat.new(:total=> @score.value, :plays => 1, :avg => @score.value, :user_id => @score.user.id, :game_id => @score.game.id)
-        end
-        @game_stat.save
-
-        require 'descriptive_statistics'
-        data = Score.where('game_id = ? and created_at > ?', @game.id, Time.now-6.hours).collect(&:value)
-        dev = data.standard_deviation
-
-        score_diff = @score.value - data.mean
-
-        num_devs = score_diff/dev.to_f
-        @stat_score = 500 + (100*num_devs).to_i
-        @percentile = data.percentile_rank(@score.value).to_i
-        streak = current_user.streaks.where(:game_id => @game.id).first
-        if streak.streak >= 2
-          if streak.direction == "good"
-            @streak_msg = "That's #{streak.streak} consecutive above average performances!"
-          else
-            @streak_msg = "That's #{streak.streak} consecutive below average performances :("
-          end
-
-        end
 
 
       end
     else
-      @score = Score.where(:game=>@game, :session_id=>params[:session_id], :value=>-1).last
+      @score = Score.where(:scoreable_id=>@game.id,:scoreable_type => 'Game', :session_id=>cookies[:session_id].to_i, :game_session=>params[:game_session]).last
       @score.value = params[:score]
       @score.save!
     end
 
+    @high_scores = @game.scores.order(value: :desc).take(10)
   end
 
   def spot_value

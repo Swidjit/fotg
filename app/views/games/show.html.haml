@@ -34,9 +34,12 @@
           %ins.adsbygoogle{"data-ad-client" => "ca-pub-1203319491225179", "data-ad-format" => "auto", "data-ad-slot" => "1185270621", "data-ad-format" => "rectangle", :style => "display:block"}
           :javascript
             (adsbygoogle = window.adsbygoogle || []).push({});
-
+        %div
+          %h4 High Scores
+          #high-scores
+            =render @high_scores
     .row
-      .large-8.columns
+      .large-12.columns
         #comments
           %h5.title
             %a{:href => "#panel2"} Comments
@@ -50,9 +53,7 @@
                 %p No comments yet on this typing game.
             .comment-bottom
       .large-4.columns
-        %h4 High Scores
-        #high-scores
-          =render @high_scores
+
 #myModal.reveal-modal{"data-reveal" => ""}
   %h2 You are not signed in
   %p.lead You'll need to register to participate

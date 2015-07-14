@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources 'typing-news', :as=> :typing_news, :controller => :typing_news, :only => [:create, :destroy, :index, :new]
+
   resources 'kids-games', :as=> :other_games, :controller => :kids_games, :only => [:index,:show]
 
   resources :comments, :only => [:create, :destroy]

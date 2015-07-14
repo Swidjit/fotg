@@ -13,6 +13,7 @@ class PagesController < ApplicationController
     end
     @games = Game.all
     @other_games = OtherGame.all
+    @typing_news = TypingNews.order(created_at: :desc).take(5)
     @kids_games = OtherGame.where('id in (?)',(20..25))
   end
 

@@ -21,4 +21,11 @@ class PagesController < ApplicationController
 
     render params[:page_name]
   end
+
+  def words
+    render 'words.txt'
+  end
+  def words_over_3
+    render 'words-over-3.txt'
+  end
 end

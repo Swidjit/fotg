@@ -26,7 +26,7 @@ class GamesController < ApplicationController
 
   def init_score
     if user_signed_in?
-      @score = Score.new(:game=>@game, :user=>current_user, :value=>-1)
+      @score = Score.new(:scoreable_id=>@game.id,:scoreable_type => 'Game', :user=>current_user, :game_session => params[:game_session], :value=>-1)
     else
       @score = Score.new(:scoreable_id=>@game.id,:scoreable_type => 'Game', :session_id=>cookies[:session_id].to_i, :game_session => params[:game_session],:value=>-1)
     end
@@ -41,7 +41,7 @@ class GamesController < ApplicationController
 
   def save_score
     if user_signed_in?
-      @score = Score.where(:scoreable_id=>@game.id,:scoreable_type => 'Game', :user=>current_user, game_session=>params[:game_session]).last
+      @score = Score.where(:scoreable_id=>@game.id,:scoreable_type => 'Game', :user=>current_user, :game_session=>params[:game_session]).last
       @score.value = params[:score]
       if @score.save!
 

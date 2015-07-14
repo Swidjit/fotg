@@ -44,7 +44,10 @@
             .comments
               -if user_signed_in?
                 = render :partial => 'comments/form', :locals => { :comment => @new_comment }
-              = render :partial => 'comments/comment', :collection => @comments, :as => :comment
+              -if @comments.length > 0
+                = render :partial => 'comments/comment', :collection => @comments, :as => :comment
+              -else
+                %p No comments yet on this typing game.
             .comment-bottom
       .large-4.columns
         %h4 High Scores
@@ -60,13 +63,13 @@
   %a.close-reveal-modal ×
 
 #roundComplete.reveal-modal{"data-reveal" => ""}
-  .green{:style =>"padding: 4px 15px 1px; margin: 0 10px 12px 0;"}
-
-    %h4{:style=>"font-size:: 25px;"}
-      You are playing as a guest.  Login now and we will save your score to your new account and you can start tracking your luck.
-    .round-score-value 0
-    .total-score-value 0
-    %button#continue Next Round
+  %h3 Round Complete
+  %h5 Congrats, your typing skills were enough to survive this round.  Now, the game gets harder.
+  .round.score-value 0
+  .total.score-value 0
+  %div{:style=>"height:20px;"}
+  %button#continue Next Round
+  %p You are playing as a guest.  Login or register after the game and we will save your score to your account.
 
   %a.close-reveal-modal ×
 
@@ -130,8 +133,9 @@
       $('#pause').show();
     });
     $('#play-again').on('click', function() {
-      initGame();
       initScore();
+      initGame();
+
     });
   });
 
@@ -149,13 +153,14 @@
   }
 
   function gameOver() {
-
+    calculateScore();
     $('#results').html();
 
     $('#results').append('#{escape_javascript render :partial=>"end_of_game_ad"}');
+    $('.score-value').html('Final Score: ' + score);
     $('#game').hide();
     $('.game-control').hide();
-    calculateScore();
+
   }
 
 :css
@@ -174,6 +179,7 @@
   #game {
     position: relative;
 
+
   }
   #ad {
     position:fixed;
@@ -187,8 +193,10 @@
     background-color: red;
     font-weight: 600;
     color: #000;
-    margin: 15px 0 20px;
-    display:block;
+    margin: 15px 0 10px;
+    font-size: 20px;
+    max-width: 220px;
+    display: block;
   }
 
   .score-panel {

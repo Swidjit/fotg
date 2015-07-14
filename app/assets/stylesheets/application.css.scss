@@ -167,11 +167,16 @@ font-size: 20px;
 
 }
 
-h4.game-title {
+h3.game-title {
   color: $dark-blue;
   font-weight: bold;
   margin-top: 0px;
   padding-top: 0px;
+  font-size: 35px;
+}
+#game-desc {
+  color: #111;
+  font-size: 18px;
 }
 .game-desc, .game-inst {
   color: $dark-blue;
@@ -187,6 +192,7 @@ h4.game-title {
 .score-value, .score-label {
 	display:inline;
 	color: $dark-blue;
+
 }
 .score {
   label {

@@ -43,5 +43,7 @@ Rails.application.routes.draw do
   get 'more-typing-practice/:title' => 'typing_resources#index'
   match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
   get 'sitemap.xml' => 'sitemap#index', as: 'sitemap', defaults: { format: 'xml' }
+  get 'words.txt' => 'pages#words'
+  get 'words-over-3.txt' => 'pages#words_over_3'
 
 end

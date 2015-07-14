@@ -15,9 +15,9 @@
     #header-menu.show-for-medium-up
       -if user_signed_in?
         .header-menu
-
-          -#= render :partial => 'users/personal_menu'
-
+          =link_to destroy_user_session_path, :method => 'delete' do
+            %button.right
+              Logout
 
       -else
         .header-menu

@@ -37,14 +37,13 @@ class GamesController < ApplicationController
     if user_signed_in?
       @score = Score.where(:scoreable_id=>@game.id,:scoreable_type => 'Game', :user=>current_user, :game_session=>params[:game_session]).last
       @score.value = params[:score]
-      if @score.save!
-
+      if @score.save
 
       end
     else
       @score = Score.where(:scoreable_id=>@game.id,:scoreable_type => 'Game', :session_id=>cookies[:session_id].to_i, :game_session=>params[:game_session]).last
       @score.value = params[:score]
-      @score.save!
+      @score.save
     end
 
     @high_scores = @game.scores.order(value: :desc).take(10)

@@ -12,6 +12,9 @@ class GamesController < ApplicationController
     end
     @high_scores = @game.scores.order(value: :desc).take(10)
 
+    @top_players = @game.game_stats.order(avg: :desc).take(10)
+
+
   end
 
   def index
@@ -50,7 +53,7 @@ class GamesController < ApplicationController
     end
 
     @high_scores = @game.scores.order(value: :desc).take(10)
-    @top_averages = @game.game_stats.order(avg: :desc).take(10)
+    @top_players = @game.game_stats.order(avg: :desc).take(10)
   end
 
 

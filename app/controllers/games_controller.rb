@@ -20,9 +20,9 @@ class GamesController < ApplicationController
 
   def init_score
     if user_signed_in?
-      @score = Score.new(:scoreable_id=>@game.id,:scoreable_type => 'Game', :user=>current_user, :game_session => params[:game_session], :value=>-1)
+      @score = Score.new(:scoreable_id=>@game.id,:scoreable_type => 'Game', :user=>current_user, :game_session => params[:game_session], :status=>'initialized')
     else
-      @score = Score.new(:scoreable_id=>@game.id,:scoreable_type => 'Game', :session_id=>cookies[:session_id].to_i, :game_session => params[:game_session],:value=>-1)
+      @score = Score.new(:scoreable_id=>@game.id,:scoreable_type => 'Game', :session_id=>cookies[:session_id].to_i, :game_session => params[:game_session], :status=>'initialized')
     end
     @score.save
     @score.value = -1
@@ -35,18 +35,22 @@ class GamesController < ApplicationController
 
   def save_score
     if user_signed_in?
-      @score = Score.where(:scoreable_id=>@game.id,:scoreable_type => 'Game', :user=>current_user, :game_session=>params[:game_session]).last
+      @score = Score.where(:game_session=>params[:game_session]).last
       @score.value = params[:score]
+      @score.status = params[:status]
+
       if @score.save
 
       end
     else
-      @score = Score.where(:scoreable_id=>@game.id,:scoreable_type => 'Game', :session_id=>cookies[:session_id].to_i, :game_session=>params[:game_session]).last
+      @score = Score.where(:game_session=>params[:game_session]).last
       @score.value = params[:score]
+      @score.status = params[:status]
       @score.save
     end
 
     @high_scores = @game.scores.order(value: :desc).take(10)
+    @top_averages = @game.game_stats.order(avg: :desc).take(10)
   end
 
 

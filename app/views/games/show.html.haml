@@ -145,9 +145,10 @@
     $.get('#{init_score_game_path(@game.id)}?game_session='+game_session);
   }
 
-  function saveScore() {
+  function saveScore(st) {
     var data = {
       score: score,
+      status: st,
       game_session: game_session
     }
     $.post('#{save_score_game_path(@game.id)}', data);
@@ -155,6 +156,7 @@
 
   function gameOver() {
     calculateScore();
+    saveScore('final');
     $('#results').html();
 
     $('#results').append('#{escape_javascript render :partial=>"end_of_game_ad"}');

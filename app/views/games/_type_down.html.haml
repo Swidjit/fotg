@@ -194,12 +194,13 @@
     $('.round').html("Round Score: "+ round_score);
     $('.total').html("Total Score: "+ score);
 
-    saveScore();
+
 
   }
 
   function roundComplete() {
     calculateScore();
+    saveScore('in_progress');
     $('#roundComplete').foundation('reveal', 'open');
   }
 

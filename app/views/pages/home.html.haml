@@ -6,33 +6,30 @@
   %meta{:content => "Keyboard Playground | Free Online Typing Games", :property => "title"}
   %meta{:property => "description", :content => "Games, tests and tutors to help you learn to type on keyboards and mobile devices."}
   %meta{:property => 'keywords', :content => 'typing, games, online, play, tests, keyboarding, wpm'}
-.row
-  .large-12.columns
-    %p FreeOnlineTypingGames.com aka The Keyboard Playground is home to a huge collection of online typing games, WPM typing tests, a typing tutor, and other free typing resources to help you improve your keyboarding skills.  Practicing typing has never been so fun!
-.row
-  .large-8.columns
-    %h4 FOTG Original Games
-    -@games.each do |game|
-      =render :partial => 'games/game_logo', :locals => {game:game}
-  .large-4.columns
+
+%p FreeOnlineTypingGames.com aka The Keyboard Playground is home to a huge collection of online typing games, WPM typing tests, a typing tutor, and other free typing resources to help you improve your keyboarding skills.  Practicing typing has never been so fun!
+.wrap
+  .info-column
     %script{:async => "", :src => "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"}
-      / fotg home page
-      %ins.adsbygoogle{"data-ad-client" => "ca-pub-1203319491225179", "data-ad-format" => "auto", "data-ad-slot" => "7811520627", :style => "display:block"}
-      :javascript
-        (adsbygoogle = window.adsbygoogle || []).push({});
-.row{:style => "margin-top: 15px;"}
-  .large-8.columns
-    %h4 Other Typing Games
-    -@other_games.each do |game|
-      =render :partial => 'games/other_game_logo', :locals => {game:game}
-  .large-4.columns
+    / fotg home page
+    %ins.adsbygoogle{"data-ad-client" => "ca-pub-1203319491225179", "data-ad-format" => "auto", "data-ad-slot" => "7811520627", :style => "display:block"}
+    :javascript
+      (adsbygoogle = window.adsbygoogle || []).push({});
     %h5 Site News
     =render @typing_news
     %p FOTG will be undergoing a major upgrade during the summer of 2015.  The new site won't be fully complete for a couple months, but have started this process now with a new design that is faster and mobile-friendly.  New games and features will be added throughout the summer!
-.row{:style => "margin-top: 15px;"}
-  .large-8.columns
+
+    %h5 Typing Resources
+  .game-column
+    %h4 FOTG Original Games
+    -@games.each do |game|
+      =render :partial => 'games/game_logo', :locals => {game:game}
+    %h4 Other Typing Games
+    -@other_games.each do |game|
+      =render :partial => 'games/other_game_logo', :locals => {game:game}
     %h4 Kids Typing Games
     -@kids_games.each do |game|
       =render :partial => 'games/other_game_logo', :locals => {game:game}
-  .large-4.columns
-    %h5 Typing Resources
+
+
+

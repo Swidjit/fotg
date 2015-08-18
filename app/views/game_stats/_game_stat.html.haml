@@ -1,0 +1,8 @@
+.score
+  %label
+    -if game_stat.user.nil?
+      guest
+    -else
+      =game_stat.user.username
+  %span
+    =game_stat.avg

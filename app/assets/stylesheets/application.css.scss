@@ -243,6 +243,24 @@ ul.menu {
   position:relative;
 }
 
+/* home page */
+
+.wrap {
+   height: auto;
+   overflow: hidden;
+}
+.info-column {
+    width: 180px;
+    float: right;
+}
+.game-column {
+    float: none !important; /* not needed, just for clarification */
+    /* the next props are meant to keep this block independent from the other floated one */
+    width: auto;
+    overflow: hidden;
+    margin-right: 200px;
+}
+
 /* wpm test */
 #wpm {
   margin-top: 15px;
@@ -430,5 +448,41 @@ margin-top: 10px;
     width: 100%;
     display: inline-block;
 
+  }
+}
+
+@media only screen and (min-width: 960px) {
+  .info-column {
+      width: 350px;
+  }
+  .game-column {
+      margin-right: 365px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .info-column {
+      width: 310px;
+  }
+  .game-column {
+      margin-right: 325px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .info-column {
+      width: 170px;
+  }
+  .game-column {
+      margin-right: 185px;
+  }
+}
+
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+  .info-column {
+      width: 100%;
+  }
+  .game-column {
+      width: 100%;
   }
 }

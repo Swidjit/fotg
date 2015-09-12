@@ -1,64 +1,105 @@
+
 #game-board
   #typing-input{:type => "text", :contentEditable => "true"}
+  #strikes
+    .strike X
+    .strike X
+    .strike X
+    .strike X
+    .strike X
+  #strikes-down
+
+  #correct
   #pieces
+
 
 
 
 :css
   #game {
     position: relative;
-
   }
   #pieces {
     position: absolute;
-
+    top: 0px;
+    z-index: 10;
   }
   #game-board {
-    position: absolute;
     display: none;
     overflow-y:hidden;
     width: 100%;
     background-color: beige;
-
     padding: 8px 10px;
   }
 
   #typing-input {
     border: 2px solid gray;
-    font-size: 22px;
-    width: 200px;
-    margin-bottom: 200px;
+    font-size: 25px;
+    left: 10px;
+    right: 145px;
+    position: absolute;
     height: 40px;
     padding: 2px 7px;
     font-weight: bold;
     color: #000;
     background-color: #fff;
+    z-index: 1000;
+  }
+  #strikes, #strikes-down {
+    position: absolute;
+    right: 10px;
+    width: 130px;
+    color: #bbb;
+    z-index: 87;
+  }
+  #strikes-down {
+    color: red !important;
+    z-index: 88;
+  }
+  #correct {
+    background: url('clover.png') 2px 2px no-repeat;
+    background-size: 100px;
+    right: 5px;
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    color: #000;
+
+    z-index: 1001;
   }
   .piece {
-
-    top: 0px;
+    top: 50px;
     display:block;
-    font-size: 27px;
-    line-height: 28px;
+    font-size: 21px;
+    line-height: 25px;
     font-weight: bold;
     padding: 3px 5px;
+    position: absolute;
+    opacity: 0;
 
   }
+
+  .strike, .striked {
+    float: right;
+    font-size: 26px;
+    margin-left: 5px;
+  }
+  .striked {
+    color: red;
+  }
+
 
 :javascript
   var wordlist;
-  var game_top;
-  var time;
-  var time_remaining;
-  var resume_time;
-  var distance;
-  var currentTime;
+  var strikes;
   var game_session;
   var round_num;
   var score;
-  var push;
+  var points;
   var word_length;
   var score;
+  var game_speed;
+  var int;
   $('div[contenteditable]').keydown(function(e) {
     // trap the return key being pressed
     if (e.keyCode === 13) {
@@ -74,19 +115,30 @@
     var keycode = (event.keyCode ? event.keyCode : event.which);
 
     if(keycode == '13'){
+      console.log('dd');
       $( ".piece" ).each(function() {
-        if($.trim($(this).text()) == $.trim($('#typing-input').text())) {
+        if($.trim($(this)[0].textContent) == $.trim($('#typing-input').text())) {
+          play_score = ($('#game-board').height()-parseInt($(this).css('top'), 10))/100 * $.trim($(this)[0].textContent).length;
+          console.log(play_score);
+          points += parseInt(play_score);
+          $(this).stop();
           $(this).remove();
-          $('#pieces').stop();
-          time_remaining = time - (new Date().getTime() - resume_time);
-          $('#pieces').css('top','+='+push+'px');
-          startPieces();
           $('#typing-input').text('');
-          if($('#pieces').children().length == 0) {
 
-            $('#pieces').stop();
-            roundComplete();
+          if(game_words.length == 0) {
+            clearInterval(int);
+            if($('#pieces').children().length == 0) {
 
+              roundComplete();
+
+            }
+          }
+          else {
+            if($('#pieces').children().length == 0) {
+              clearInterval(int);
+              nextPiece();
+              int = setInterval(nextPiece, new_word_interval);
+            }
           }
         }
       });
@@ -96,8 +148,9 @@
 
   function initGame() {
 
-    $('#game-board').css('height','500px');
-    $('#game').css('height','500px');
+    $('#game-board').css('height','450px');
+    $('#game').css('height','450px');
+
 
     $('#game-board').show();
     $('#begin').hide();
@@ -106,26 +159,35 @@
     $('#resume').hide();
     round_num = 0;
     time = 17500;
-    push = 26;
+
     time_remaining = time;
     word_count = 10;
     word_length = 3;
     score=0;
+    game_speed = 10;
+    new_word_interval = 4500;
+    window.location = '#title';
     nextRound();
 
   }
 
   function nextRound() {
-    $('#pieces').css('top', '215px');
+    $('#pieces').empty();
+    $('#strikes-down').empty();
+
     round_num++;
     word_count+=4;
-    push+=3;
+    points = 0;
+    strikes=0;
+    new_word_interval -= 150;
+    game_speed+=1;
     time -= 2500;
     char_total = 100;
+    game_words = [];
+    game_speeds = [];
     if(round_num%3==1) {
       word_length++;
       word_count -= 6;
-      push -= 5;
       time += 5000;
     }
    $.get('/words-over-3.txt', function(data) {
@@ -137,52 +199,82 @@
       char_count=0;
       do {
         console.log(char_count, char_total);
-        if(char_count+10 > char_total) {
+        if(char_count+15 > char_total) {
           words = wordlist.filter(function(item, idx) {
               return item.length == (char_total-char_count);
           });
           spot = parseInt(Math.random() * (words.length));
-          word = words.slice(spot, spot+1);
+          word = words.slice(spot, spot+1)[0];
           console.log(word);
         }
         else {
 
           spot = parseInt(Math.random() * (wordlist.length));
-          word = wordlist.slice(spot, spot+1);
-          console.log(word);
-          console.log('hey');
+          word = wordlist.slice(spot, spot+1)[0];
 
         }
+        console.log(word, word.length);
         char_count += word.length;
-        $('#pieces').append('<div class="piece">'+ word + '</div>');
+        game_words.push(word);
       }
-      while (char_count <= char_total);
+      while (char_count+3 < char_total);
 
       $('#gameComplete').foundation('reveal','close');
       $('#roundComplete').foundation('reveal','close');
-
-      startPieces();
+      setSpeeds();
+      clearInterval(int);
+      nextPiece();
+      int = setInterval(nextPiece, new_word_interval);
 
     });
 
 
   }
 
-  function startPieces() {
+  function nextPiece() {
     resume_time = new Date().getTime();
-    $('#typing-input').prop('enabled', true);
-    $( "#pieces" ).animate(
+    word = game_words.pop();
+    if(game_words.length == 0) clearInterval(int);
+    w = $('#game').width() / 3;
+    w = w * parseInt(Math.random() * 3);
+    h = $('#game-board').height();
+    $('<div class="piece">'+ word + '</div>').css('left',w).appendTo('#pieces')
+    .animate({opacity:"1"}, 400)
+    .animate(
       {
-      top: "40px"
+      top: h
       },
       {
-        duration: time_remaining,
-        easing: "linear",
+        duration: game_speeds.pop(),
+        easing: "easeInQuad",
         complete: function() {
-          gameOver();
+          len = $(this);
+          console.log(len[0].textContent.length);
+          //$('#game-board').css('height',$('#game-board').height() - 75);
+          $('<div class="striked">X</div>').appendTo('#strikes-down');
+          strikes++;
+          if(strikes == 5) {
+            $('#pieces').empty();
+            gameOver();
+          }
+
+          //if($('#game-board').height() < 50) gameOver();
+          $(this).remove();
+          if($('#pieces').children().length == 0 && game_words.length == 0) {
+            roundComplete();
+          }
         }
       }
     );
+
+  }
+
+  function setSpeeds() {
+    for(var i=0; i< (words.length / 7); i++) {
+      for(var j=game_speed-3; j<=game_speed+3; j++) {
+        game_speeds.push(j*1000);
+      }
+    }
   }
 
   function pauseGame() {
@@ -196,9 +288,7 @@
   }
 
   function calculateScore() {
-    time_remaining = time - (new Date().getTime() - resume_time);
-    console.log(time_remaining);
-    round_score = parseInt(($('#pieces').position().top-40)/10 * Math.pow(round_num,2));
+    round_score = points * round_num;
     score += round_score;
     $('.round').html("Round Score: "+ round_score);
     $('.total').html("Total Score: "+ score);

@@ -5,7 +5,7 @@
       %h4.score-value
       -if !user_signed_in?
         %p{:style=>"font-size: 16px; line-height: 18px; margin-top: 14px;color: gray;"}
-          You are playing as a guest.  Login now and we will save your score to your new account and you can start tracking your luck.
+          You are playing as a guest.  Login now and we will save your score to your new account and you can start tracking your stats.
         =link_to new_user_session_path do
           %button.radius.button.tiny Login
         =link_to new_user_registration_path do

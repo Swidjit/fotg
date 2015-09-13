@@ -8,6 +8,7 @@
   %meta{:content => "#{@game.title} Game | Keyboard Playground", :property => "title"}
   %meta{:property => "description", :content => "#{@game.description}"}
   %meta{:property => 'keywords', :content => '#{@game.itle}, typing, game, keyboarding, practice, play, online'}
+.sizer
 .row
   .large-12.columns
     .row
@@ -120,6 +121,10 @@
     $('#begin').on('click', function() {
       initGame();
       initScore();
+      console.log('je');
+      if($('.sizer').css("width") == '1px') {
+        $('#game-board').addClass('fullscreen');
+      }
       $('#game').show();
       $('.game-control').show();
       $('#results').html();

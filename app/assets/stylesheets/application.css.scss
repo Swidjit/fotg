@@ -62,6 +62,17 @@ p {
 	color: white;
 }
 
+.notice, .alert {
+  position: fixed;
+  top: 50px;
+  z-index: 3000;
+  background: red;
+  color: #fff;
+  margin: 0px 5%;
+  text-align:center;
+  width: 90%;
+}
+
 .ad {
   margin: 10px 0 15px;
 }
@@ -174,9 +185,11 @@ font-size: 20px;
 h3.game-title {
   color: $dark-blue;
   font-weight: bold;
-  margin-top: 0px;
+  margin-top: 10px;
   padding-top: 0px;
-  font-size: 35px;
+  font-size: 32px;
+  line-height: 27px;
+
 }
 #game-desc {
   color: #111;
@@ -446,12 +459,51 @@ margin-top: 10px;
   margin: 0 25px;
 }
 
+#game-board.fullscreen {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 2000;
+}
 
 @media screen and (max-width:479px) {
+  .sizer {
+    width: 1px;
+  }
   .col-33 {
+
     width: 100%;
     display: inline-block;
 
+  }
+  button {
+    font-size: 16px;
+  }
+  #menu {
+    margin: 0px;
+  }
+  #game-board {
+    padding: 0px;
+  }
+
+  ul.menu {
+    list-style-type: none;
+    margin: 0px;
+    li a {
+      font-size: 15px;
+      font-weight: bold;
+      color: #2b64b3;
+      width: auto;
+      float: left;
+      margin-right: 8px;
+      text-align:center;
+      padding: 0px 3px;
+    }
+    li a:hover {
+      background-color: #eee;
+
+    }
   }
 }
 

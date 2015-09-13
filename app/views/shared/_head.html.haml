@@ -1,18 +1,13 @@
 .row{:style=>"z-index:900;top: 0px;"}
-  .large-6.medium-2.small-2.columns{:style => "height: 48px;line-height:42px;"}
+  .large-6.medium-7.small-2.columns{:style => "height: 48px;line-height:42px;"}
     =link_to root_path do
-      %h2.logo Free Online Typing Games
-
-  .large-6.medium-10.small-10.columns{:style => "float: right; height: 48px;font-weight:500;"}
-    #header-menu.show-for-small
-      -if user_signed_in?
-
-        .header-mesnu
-          =link_to new_user_session_path, :class => "button" do
-            Stats
+      %h2.logo.show-for-medium-up Free Online Typing Games
+      %h2.logo.show-for-small-only FOTG
 
 
-    #header-menu.show-for-medium-up
+  .large-6.medium-5.small-10.columns{:style => "float: right; height: 48px;font-weight:500;"}
+
+    #header-menu
       -if user_signed_in?
         .header-menu
           =link_to destroy_user_session_path, :method => 'delete' do

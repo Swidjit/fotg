@@ -1,9 +1,13 @@
 #menu
   .row
-    .large-12.columns
-      %ul.menu
+    .large-12.columns{:style=>"padding: 6px 8px;"}
+      %ul.menu.hide-for-small
         %li=link_to "Our Typing Games", games_path
-        %li=link_to "Other Tying Games", other_games_path
+        %li=link_to "More Typing Games", other_games_path
         %li=link_to "Kids Typing Games", :controller => :kids_games, :action => :index
         %li=link_to "WPM Typing Tests", wpm_tests_path
+        %li=link_to "Typing Tutor", "/typing-tutor"
+      %ul.menu.show-for-small
+        %li=link_to "Typing Games", games_path
+        %li=link_to "Typing Tests", wpm_tests_path
         %li=link_to "Typing Tutor", "/typing-tutor"

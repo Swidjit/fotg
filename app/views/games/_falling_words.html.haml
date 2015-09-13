@@ -25,7 +25,7 @@
     overflow-y:hidden;
     width: 100%;
     background-color: beige;
-    padding: 8px 10px;
+
   }
 
   #typing-input {
@@ -33,6 +33,7 @@
     font-size: 25px;
     left: 10px;
     right: 105px;
+    top: 8px;
     position: absolute;
     height: 40px;
     padding: 2px 7px;
@@ -47,6 +48,7 @@
     width: 90px;
     color: #bbb;
     z-index: 87;
+    top: 8px;
   }
   #strikes-down {
     color: red !important;
@@ -177,6 +179,8 @@
     points = 0;
     strikes=0;
 
+
+
     word_length+=2;
     game_words = [];
     game_speeds = [];
@@ -271,13 +275,15 @@
   }
 
   function roundComplete() {
-    $('#game-board').hide();
+
     clearInterval(int);
     $('.piece').stop();
     $('#pieces').empty();
     calculateScore();
-    saveScore('in_progress');
     $('#roundComplete').foundation('reveal', 'open');
+    saveScore('in_progress');
+    $('#game-board').hide();
+
   }
 
 

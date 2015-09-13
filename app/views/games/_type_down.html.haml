@@ -77,7 +77,7 @@
 
     if(keycode == '13'){
       $( ".piece" ).each(function() {
-        if($.trim($(this).text()) == $.trim($('#typing-input').text())) {
+        if($.trim($(this).text()).toLowerCase() == $.trim($('#typing-input').text()).toLowerCase()) {
           $(this).remove();
           $('#pieces').stop();
           time_remaining = time - (new Date().getTime() - resume_time);
@@ -132,20 +132,17 @@
     }
 
 
-    $.get('/words-over-3.txt', function(data) {
+    $.get('/words-'+word_length+'.txt', function(data) {
 
-        var lines = data.split(',');
-        lines = lines.filter(function(item, idx) {
-            return item.length == word_length;
-        });
+        var words = data.split(' ');
+        $('#pieces').empty();
+        for(var i=0; i < word_count; i++) {
+          spot = parseInt(Math.random() * (words.length));
+          word = words.slice(spot, spot+1)[0];
+          $('#pieces').append('<div class="piece">'+ word + '</div>');
 
-        spot = parseInt(Math.random() * (lines.length-word_count));
-        wordlist = lines.slice(spot, spot+word_count);
-        $('#pieces').html('');
-        $.each(wordlist, function(index, value) {
-          $('#pieces').append('<div class="piece">'+ value + '</div>');
+        }
 
-        });
         $('#gameComplete').foundation('reveal','close');
         $('#roundComplete').foundation('reveal','close');
         //$('#pieces').css('top',game_top);
@@ -170,7 +167,7 @@
         duration: time_remaining,
         easing: "linear",
         complete: function() {
-          gameOver();
+          lost();
         }
       }
     );
@@ -186,6 +183,13 @@
 
   }
 
+  function lost() {
+    $('#game-board').hide();
+    $('#pieces').stop();
+    $('#pieces').empty();
+    gameOver();
+  }
+
   function calculateScore() {
     time_remaining = time - (new Date().getTime() - resume_time);
     console.log(time_remaining);
@@ -199,6 +203,8 @@
   }
 
   function roundComplete() {
+    $('#pieces').stop();
+    $('#pieces').empty();
     calculateScore();
     saveScore('in_progress');
     $('#roundComplete').foundation('reveal', 'open');

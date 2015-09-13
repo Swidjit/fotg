@@ -212,13 +212,22 @@ h3.game-title {
 
 }
 .score {
+
   label {
-    margin-right: 6px;
-    display:inline;
+    width: 50%;
+    text-align: right;
+    float:left;
+    line-height: 22px;
+    font-size: 19px;
   }
   span {
+    width: 46%;
+    text-align:left;
+    float:left;
+    padding-left: 4%;
+    line-height: 22px;
+    font-size: 19px;
   }
-  clear: both;
 }
 #menu {
   margin: 10px 0;

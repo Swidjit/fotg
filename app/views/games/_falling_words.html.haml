@@ -119,7 +119,7 @@
 
     if(keycode == '13'){
       $( ".piece" ).each(function() {
-        if($.trim($(this)[0].textContent) == $.trim($('#typing-input').text())) {
+        if($.trim($(this)[0].textContent).toLowerCase() == $.trim($('#typing-input').text()).toLowerCase()) {
           play_score = ($('#game-board').height()-parseInt($(this).css('top'), 10))/100 * $.trim($(this)[0].textContent).length;
           points += parseInt(play_score);
           $(this).stop();

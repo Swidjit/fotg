@@ -1,12 +1,17 @@
-.row.upgrade-message
+.row.upgrade-message{:style=>'margin-top: 10px;'}
   .large-12.columns
     %h3 Game currently unavailable
+    %p Freeonlinetypinggames.com is currently undergoing a major upgrade. During this time, we will be rebuilding many of the games so they are better and mobile-friendly.  In the meantime, some of our custom games (such as this one) will not be available.  Sorry :(
+    %h4 As of right now, only these games work:
+    -@game=Game.where(:title=>'Type Down').first
+    =render :partial => 'games/game_logo', :locals => {game:@game}
+    -@game=Game.where(:title=>'Falling Words').first
+    =render :partial => 'games/game_logo', :locals => {game:@game}
     %p<
-      From 7/1/2015 - 8/15/2015, freeonlinetypinggames.com will be undergoing a major upgrade. During this time, we will be rebuilding many of the games so they are better and mobile-friendly.  In the meantime, some of our custom games (such as this one) will not be available, but there are still plenty of
-      =link_to "typing games", other_games_path
-      here to play
-  .large-12.columns
-    .panel
-      =link_to "http://goodlucktest.com" do
-        %h4 How lucky are you?
+      You may also want to check out these
+      =link_to "flash typing games", other_games_path
+      made by other developers
+    =link_to "http://goodlucktest.com", :class => 'glt' do
+      %h4 Try your luck at goodlucktest.com
+      %p How does your luck compare to the rest of the world?
 

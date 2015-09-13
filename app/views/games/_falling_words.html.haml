@@ -177,12 +177,12 @@
     points = 0;
     strikes=0;
 
-    word_length++;
+    word_length+=2;
     game_words = [];
     game_speeds = [];
     if(round_num%4==1) {
-      game_speed-=1;
-      new_word_interval -= 250;
+      game_speed-=1.5;
+      new_word_interval -= 500;
       word_length = 4;
     }
    $.get('/words-'+word_length+'.txt', function(data) {

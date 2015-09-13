@@ -5,15 +5,10 @@
     .strike X
     .strike X
     .strike X
-    .strike X
-    .strike X
   #strikes-down
 
   #correct
   #pieces
-
-
-
 
 :css
   #game {
@@ -23,6 +18,7 @@
     position: absolute;
     top: 0px;
     z-index: 10;
+    width: 100%;
   }
   #game-board {
     display: none;
@@ -36,7 +32,7 @@
     border: 2px solid gray;
     font-size: 25px;
     left: 10px;
-    right: 145px;
+    right: 105px;
     position: absolute;
     height: 40px;
     padding: 2px 7px;
@@ -47,8 +43,8 @@
   }
   #strikes, #strikes-down {
     position: absolute;
-    right: 10px;
-    width: 130px;
+    right: 15px;
+    width: 90px;
     color: #bbb;
     z-index: 87;
   }
@@ -70,19 +66,24 @@
   .piece {
     top: 50px;
     display:block;
-    font-size: 21px;
+    font-size: 26px;
     line-height: 25px;
     font-weight: bold;
     padding: 3px 5px;
     position: absolute;
     opacity: 0;
+    width: 95%;
+    margin: auto;
+    text-align: center;
+    color: black;
 
   }
 
   .strike, .striked {
     float: right;
-    font-size: 26px;
-    margin-left: 5px;
+    font-size: 30px;
+    font-weight: 700;
+    margin-left: 8px;
   }
   .striked {
     color: red;
@@ -90,7 +91,7 @@
 
 
 :javascript
-  var wordlist;
+  var words;
   var strikes;
   var game_session;
   var round_num;
@@ -115,11 +116,9 @@
     var keycode = (event.keyCode ? event.keyCode : event.which);
 
     if(keycode == '13'){
-      console.log('dd');
       $( ".piece" ).each(function() {
         if($.trim($(this)[0].textContent) == $.trim($('#typing-input').text())) {
           play_score = ($('#game-board').height()-parseInt($(this).css('top'), 10))/100 * $.trim($(this)[0].textContent).length;
-          console.log(play_score);
           points += parseInt(play_score);
           $(this).stop();
           $(this).remove();
@@ -128,9 +127,7 @@
           if(game_words.length == 0) {
             clearInterval(int);
             if($('#pieces').children().length == 0) {
-
               roundComplete();
-
             }
           }
           else {
@@ -154,17 +151,17 @@
 
     $('#game-board').show();
     $('#begin').hide();
+    $('#pause').remove();
     $('#game-desc').hide();
-    $('#pause').show();
-    $('#resume').hide();
+
     round_num = 0;
     time = 17500;
 
     time_remaining = time;
-    word_count = 10;
-    word_length = 3;
+    word_count = 12;
+    word_length = 4;
     score=0;
-    game_speed = 10;
+    game_speed = 11;
     new_word_interval = 4500;
     window.location = '#title';
     nextRound();
@@ -174,50 +171,30 @@
   function nextRound() {
     $('#pieces').empty();
     $('#strikes-down').empty();
+    $('#game-board').show();
 
     round_num++;
-    word_count+=4;
     points = 0;
     strikes=0;
-    new_word_interval -= 150;
-    game_speed+=1;
-    time -= 2500;
-    char_total = 100;
+
+    word_length++;
     game_words = [];
     game_speeds = [];
-    if(round_num%3==1) {
-      word_length++;
-      word_count -= 6;
-      time += 5000;
+    if(round_num%4==1) {
+      game_speed-=1;
+      new_word_interval -= 250;
+      word_length = 4;
     }
-   $.get('/words-over-3.txt', function(data) {
-      var wordlist = data.split(',');
-
+   $.get('/words-'+word_length+'.txt', function(data) {
+      words = data.split(' ');
 
       $('#typing-input').focus();
       $('#typing-input').text('');
-      char_count=0;
-      do {
-        console.log(char_count, char_total);
-        if(char_count+15 > char_total) {
-          words = wordlist.filter(function(item, idx) {
-              return item.length == (char_total-char_count);
-          });
-          spot = parseInt(Math.random() * (words.length));
-          word = words.slice(spot, spot+1)[0];
-          console.log(word);
-        }
-        else {
-
-          spot = parseInt(Math.random() * (wordlist.length));
-          word = wordlist.slice(spot, spot+1)[0];
-
-        }
-        console.log(word, word.length);
-        char_count += word.length;
+      for(var i=0; i < word_count; i++) {
+        spot = parseInt(Math.random() * (words.length));
+        word = words.slice(spot, spot+1)[0];
         game_words.push(word);
       }
-      while (char_count+3 < char_total);
 
       $('#gameComplete').foundation('reveal','close');
       $('#roundComplete').foundation('reveal','close');
@@ -232,14 +209,12 @@
   }
 
   function nextPiece() {
-    resume_time = new Date().getTime();
     word = game_words.pop();
     if(game_words.length == 0) clearInterval(int);
-    w = $('#game').width() / 3;
-    w = w * parseInt(Math.random() * 3);
+    w = $('#game').width() / 2;
     h = $('#game-board').height();
-    $('<div class="piece">'+ word + '</div>').css('left',w).appendTo('#pieces')
-    .animate({opacity:"1"}, 400)
+    $('<div class="piece">'+ word + '</div>').appendTo('#pieces')
+    .animate({opacity:"1"}, 200)
     .animate(
       {
       top: h
@@ -249,18 +224,17 @@
         easing: "easeInQuad",
         complete: function() {
           len = $(this);
-          console.log(len[0].textContent.length);
           //$('#game-board').css('height',$('#game-board').height() - 75);
           $('<div class="striked">X</div>').appendTo('#strikes-down');
           strikes++;
-          if(strikes == 5) {
-            $('#pieces').empty();
-            gameOver();
+          if(strikes == 3) {
+            lost();
           }
 
           //if($('#game-board').height() < 50) gameOver();
           $(this).remove();
           if($('#pieces').children().length == 0 && game_words.length == 0) {
+
             roundComplete();
           }
         }
@@ -270,22 +244,13 @@
   }
 
   function setSpeeds() {
-    for(var i=0; i< (words.length / 7); i++) {
+    for(var i=0; i< (game_words.length / 7); i++) {
       for(var j=game_speed-3; j<=game_speed+3; j++) {
         game_speeds.push(j*1000);
       }
     }
   }
 
-  function pauseGame() {
-    time_remaining = time - (new Date().getTime() - resume_time);
-    $( "#pieces" ).stop();
-    $('#typing-input').prop('disabled', true);
-  }
-  function resumeGame() {
-    startPieces();
-
-  }
 
   function calculateScore() {
     round_score = points * round_num;
@@ -293,11 +258,23 @@
     $('.round').html("Round Score: "+ round_score);
     $('.total').html("Total Score: "+ score);
 
+  }
 
-
+  function lost() {
+    $('#game-board').hide();
+    clearInterval(int);
+    $('.piece').stop();
+    $('#pieces').empty();
+    round_score = points;
+    score += points;
+    gameOver();
   }
 
   function roundComplete() {
+    $('#game-board').hide();
+    clearInterval(int);
+    $('.piece').stop();
+    $('#pieces').empty();
     calculateScore();
     saveScore('in_progress');
     $('#roundComplete').foundation('reveal', 'open');

@@ -7,7 +7,7 @@ class Score < ActiveRecord::Base
   after_save :calculate_game_stats
 
   def calculate_game_stats
-    if self.status == 'final'
+    if self.score_status == 'final'
       unless self.value == -1
         unless self.user.nil?
           game = self.scoreable

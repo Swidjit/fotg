@@ -23,9 +23,9 @@ class GamesController < ApplicationController
 
   def init_score
     if user_signed_in?
-      @score = Score.new(:scoreable_id=>@game.id,:scoreable_type => 'Game', :user=>current_user, :game_session => params[:game_session], :status=>'initialized')
+      @score = Score.new(:scoreable_id=>@game.id,:scoreable_type => 'Game', :user=>current_user, :game_session => params[:game_session], :score_status=>'initialized')
     else
-      @score = Score.new(:scoreable_id=>@game.id,:scoreable_type => 'Game', :session_id=>cookies[:session_id].to_i, :game_session => params[:game_session], :status=>'initialized')
+      @score = Score.new(:scoreable_id=>@game.id,:scoreable_type => 'Game', :session_id=>cookies[:session_id].to_i, :game_session => params[:game_session], :score_status=>'initialized')
     end
     @score.save
     @score.value = -1
@@ -40,7 +40,7 @@ class GamesController < ApplicationController
     if user_signed_in?
       @score = Score.where(:game_session=>params[:game_session]).last
       @score.value = params[:score]
-      @score.status = params[:status]
+      @score.score_status = params[:status]
 
       if @score.save
 
@@ -48,7 +48,7 @@ class GamesController < ApplicationController
     else
       @score = Score.where(:game_session=>params[:game_session]).last
       @score.value = params[:score]
-      @score.status = params[:status]
+      @score.score_status = params[:status]
       @score.save
     end
 

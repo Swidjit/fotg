@@ -1,1 +1,78 @@
-=render :partial => 'shared/games_upgrade'
+:css
+  #keyboard {
+    background-color: #aaa;
+    height: 190px;
+    padding:5px;
+  }
+  .keyboard-row {
+    clear: both;
+  }
+  .keyboard-row div, #space {
+    float: left;
+    font-size: 24px;
+    border-radius: 2px;
+    background-color: #111;
+    color: #eee;
+    margin: 3px;
+    line-height: 38px;
+    padding: 0px;
+    text-align:center;
+    min-width: 38px;
+    -webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+  }
+  #space {
+    width: 190px;
+    height: 38px;
+  }
+#game-board
+  #typing-input{:type => "text", :contentEditable => "true"}
+  #keyboard
+    .keyboard-row
+      #key-81 Q
+      #key-87 W
+      #key-69 E
+      #key-82 R
+      #key-84 T
+      #key-89 Y
+      #key-85 U
+      #key-73 I
+      #key-79 O
+      #key-80 P
+    .keyboard-row{:style => 'margin-left: 15px;'}
+      #key-65 A
+      #key-83 S
+      #key-68 D
+      #key-70 F
+      #key-71 G
+      #key-72 H
+      #key-74 J
+      #key-75 K
+      #key-76 L
+    .keyboard-row{:style => 'margin-left: 37px;'}
+      #key-90 Z
+      #key-88 X
+      #key-67 C
+      #key-86 V
+      #key-66 B
+      #key-78 N
+      #key-77 M
+    .keyboard-row{:style => 'margin-left: 115px;'}
+      #space [ ]
+
+:javascript
+  var letters = 'q w e r t y u i o p a s d f g h j k l z x c v b n m';
+  var keys = letters.split(' ');
+  $(document).keydown(function(event) {
+    var x = event.keyCode;
+    console.log(x);
+    if(x == 32) {
+      key = $('#space');
+    }
+    else {
+
+      var key = $('#key-'+x);
+    }
+    key.animate({boxShadow:"0px 0px 0px 0px rgba(0,0,0,0.75)"}, 100).animate({boxShadow:"3px 3px 5px 0px rgba(0,0,0,0.75)"}, 100);
+  });

@@ -17,6 +17,7 @@
 //= require turbolinks
 //= require_tree .
 //= require social-share-button
+//= require jquery.animate-shadow-min
 
 $(function(){ $(document).foundation(); });
 $(document).on('ready', function(){
